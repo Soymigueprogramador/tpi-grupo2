@@ -2,8 +2,11 @@
 #include <iostream>
 #include <cstring>
 #include <limits>
-#include <cstdlib> 
+#include <cstdlib>
 #include <ctime>
+
+// Incluyendo archivos .h
+#include "reglamento.h"
 
 using namespace std;
 
@@ -23,6 +26,7 @@ int menuOpciones()
         cout << " Opcion 1 Jugar " << endl;
         cout << " Opcion 2 Estadistica " << endl;
         cout << " Opcion 3 Creditos " << endl;
+        cout << " Opcion 4 Reglamento " << endl;
         cout << " Opcion 0 Salir " << endl;
         cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
@@ -30,20 +34,17 @@ int menuOpciones()
         cin >> opciones;
 
         // Condicional para la validacion del ingreso de las opciones.
-        if (cin.fail())
-        {
-            cin.clear(); // Se usa para limpiar errores.
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << " Ingreso invalido " << endl;
-            system( " pause " );
-        }
-        else if (opciones >= 0 && opciones <= 3)
+        if (opciones >= 0 && opciones <= 4)
         {
             opcionValida = true;
         }
         else
         {
             cout << " La opcion " << opciones << " ingresada no es valida " << endl;
+            cin.clear(); // Se usa para limpiar errores.
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << " Ingreso invalido " << endl;
+            system(" pause ");
         }
     } while (!opcionValida);
 
@@ -62,7 +63,7 @@ int main()
     */
     while (!finalizar)
     {
-        system( " cls " );
+        system(" cls ");
         opcion = menuOpciones();
 
         switch (opcion)
@@ -74,17 +75,22 @@ int main()
 
         case 1:
             cout << " Comenzara el juego " << endl;
-            system( " pause " );
+            system(" pause ");
             break;
 
         case 2:
             cout << " Se mostraran las estadisticas del juego " << endl;
-            system( " pause " );
+            system(" pause ");
             break;
 
         case 3:
             cout << " Se mostraran los creditos del juego " << endl;
-            system( " pause " );
+            system(" pause ");
+            break;
+
+        case 4:
+            reglamento();
+            system(" pause ");
             break;
         }
     }
