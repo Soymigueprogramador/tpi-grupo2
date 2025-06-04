@@ -213,7 +213,7 @@ María
 Nadie ganó automáticamente, así que el ganador de la partida es Angel con 136 puntos.
 Consideraciones importantes
 El programa debe estar realizado en C++ con un proyecto de aplicación de consola.
-Debe disponer de un menú principal con las opciones descritas en el apartado de "Actividad".
+Debe disponer de un menú principal con las opcioÑnes descritas en el apartado de "Actividad".
 Durante el transcurso del juego se debe mostrar los nombres de los jugadores (dos jugadores) y los puntos totales que viene acumulando.
 Debe quedar claro durante el transcurso del juego cuáles son los dados del jugador que está jugando. Debe quedar claro al momento de seleccionar los dados cómo se realiza la selección de los mismos. Un ejemplo podría ser:
 
