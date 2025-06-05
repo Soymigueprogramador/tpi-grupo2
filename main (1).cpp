@@ -70,6 +70,12 @@ int main()
             reglamento();
             system("pause");
             break;
+
+        case 5:
+            creditos();
+            system("pause");
+            break;
+        
         }
     }
 

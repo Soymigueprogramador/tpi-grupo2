@@ -9,3 +9,4 @@ struct Jugadores {
 int decidirQuienEmpieza(Jugadores jugadores[]);
 int menuOpciones();
 void reglamento();
+void creditos();
