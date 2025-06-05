@@ -37,7 +37,7 @@ int decidirQuienEmpieza(Jugadores jugadores[]) {
     }
 }
 
-int menuOpciones() {
+int menuOpciones() { // Funcion que muestra el menu principal dl juego.
     int opciones;
     bool opcionValida = false;
 
@@ -47,11 +47,12 @@ int menuOpciones() {
         cout << "2. Estadistica\n";
         cout << "3. Creditos\n";
         cout << "4. Reglamento\n";
+        cout << "5. Creditos\n";
         cout << "0. Salir\n";
         cout << "Ingrese una opcion: ";
         cin >> opciones;
 
-        if (opciones >= 0 && opciones <= 4) {
+        if (opciones >= 0 && opciones <= 5) {
             opcionValida = true;
         } else {
             cout << "La opcion " << opciones << " no es valida. Intente nuevamente.\n";
@@ -63,7 +64,7 @@ int menuOpciones() {
     return opciones;
 
 }
-void reglamento() {
+void reglamento() { // Funcion que muestra el reglamento del juego.
     std::cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
     std::cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
     std::cout << "con las matem�ticas. El objetivo es sumar la mayor cantidad de puntos\n";
@@ -117,4 +118,22 @@ void creditos() { // Funcion que muestra los creditos del juego.
     cout << " Anexo " << endl;
 }
 
+    cout << " Nombre del grupo: Grupo 2 " << endl;
+    cout << endl;
+
+    cout << " Nombres, apellidos y legajos de los participantes " << endl;
+    cout << endl;
+
+    cout << " Miguel Guimar Salazar: 32530 " << endl;
+    cout << " Ramiro Joel Kriguer: 33446 " << endl;
+    cout << " Fernando Gabriel Quiroga: 33404 " << endl;
+    cout << " Federico Wachenschwan: 22561 " << endl;
+
+    cout << " MENCION ESPECIALES Para: " << endl;
+    cout << endl;
+
+    cout << " Íconos obtenidos de Freepik y logo hecho en Logo Maker. " << endl;
+    cout << " Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia. " << endl;
+    cout << " Anexo " << endl;
+}
 
