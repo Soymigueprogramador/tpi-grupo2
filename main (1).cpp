@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "funciones.h"
+#include "funciones.cpp"
 #include "rlutil.h"
 
 using namespace std;
@@ -46,7 +47,7 @@ int main()
                 cout << "Ingrese nombre del jugador 2: ";
                 cin >> jugadores[1].nombre;
 
-                        // Decidir quién empieza
+                        // Decidir quiï¿½n empieza
                 int quienEmpieza;
                 quienEmpieza = decidirQuienEmpieza(jugadores);
 
