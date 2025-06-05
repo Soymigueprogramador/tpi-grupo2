@@ -3,7 +3,8 @@
 
 struct Jugadores {
     std::string nombre;
-    int suma_dados;
+    int puntajeTotal = 0; 
+    int dadosStock = 6;   
 };
 
 int decidirQuienEmpieza(Jugadores jugadores[]);

@@ -5,9 +5,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "funciones.h"
-#include "funciones.cpp"
 #include "rlutil.h"
-
+#include "funciones.cpp"
 using namespace std;
 
 // Funcion para mostrar el menu.
@@ -62,7 +61,7 @@ int main()
             break;
 
         case 3:
-            cout << " Se mostraran los creditos del juego " << endl;
+            creditos();
             system("pause");
             break;
 

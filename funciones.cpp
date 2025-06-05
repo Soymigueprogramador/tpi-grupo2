@@ -6,38 +6,34 @@
 #include <limits>
 using namespace std;
 
+
+
 int decidirQuienEmpieza(Jugadores jugadores[]) {
-    srand(time(NULL)); // semilla aleatoria
+    int dado_j1, dado_j2;
 
-    // Dados jugador 1
-    int dado1_j1 = rand() % 6 + 1;
-    int dado2_j1 = rand() % 6 + 1;
-    int dado3_j1 = rand() % 6 + 1;
-    jugadores[0].suma_dados = dado1_j1 + dado2_j1 + dado3_j1;
+    
+    do {
+        cout << "Tirando dados para ver quien empieza..." << endl;
+        system("pause"); 
 
-    // Dados jugador 2
-    int dado1_j2 = rand() % 6 + 1;
-    int dado2_j2 = rand() % 6 + 1;
-    int dado3_j2 = rand() % 6 + 1;
-    jugadores[1].suma_dados = dado1_j2 + dado2_j2 + dado3_j2;
+        // Cada jugador tira UN solo dado de 6 caras
+        dado_j1 = (rand() % 6) + 1;
+        dado_j2 = (rand() % 6) + 1;
 
-    cout << jugadores[0].nombre << " sacó " << dado1_j1 << ", " << dado2_j1 << " y " << dado3_j1
-         << " (Total: " << jugadores[0].suma_dados << ")\n";
-    cout << jugadores[1].nombre << " sacó " << dado1_j2 << ", " << dado2_j2 << " y " << dado3_j2
-         << " (Total: " << jugadores[1].suma_dados << ")\n";
+        cout << jugadores[0].nombre << " saco un " << dado_j1 << endl;
+        cout << jugadores[1].nombre << " saco un " << dado_j2 << endl;
 
-    if (jugadores[0].suma_dados > jugadores[1].suma_dados)
-        return 0;
-    else if (jugadores[1].suma_dados > jugadores[0].suma_dados)
-        return 1;
-    else {
-        // Empate
-        int desempate_j1 = rand() % 6 + 1;
-        int desempate_j2 = rand() % 6 + 1;
-        cout << "Empate! Tirando dado de desempate...\n";
-        cout << jugadores[0].nombre << " sacó " << desempate_j1 << "\n";
-        cout << jugadores[1].nombre << " sacó " << desempate_j2 << "\n";
-        return (desempate_j1 > desempate_j2) ? 0 : 1;
+        if (dado_j1 == dado_j2) {
+            cout << "Â¡Empate! Se vuelve a tirar." << endl << endl;
+        }
+
+    } while (dado_j1 == dado_j2); // El bucle se repite si los dados son iguales
+
+    
+    if (dado_j1 > dado_j2) {
+        return 0; // Gana el jugador 1
+    } else {
+        return 1; // Gana el jugador 2 
     }
 }
 
@@ -70,7 +66,7 @@ int menuOpciones() {
 void reglamento() {
     std::cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
     std::cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
-    std::cout << "con las matemáticas. El objetivo es sumar la mayor cantidad de puntos\n";
+    std::cout << "con las matemï¿½ticas. El objetivo es sumar la mayor cantidad de puntos\n";
     std::cout << "en un total de tres rondas.\n\n";
 
     std::cout << "-----------------------------------------------------------------------\n";
@@ -78,24 +74,47 @@ void reglamento() {
     std::cout << "- Cada jugador tiene seis dados de seis caras (dados stock).\n";
     std::cout << "- Adicionalmente, hay dos dados de doce caras que se usan entre rondas.\n";
     std::cout << "- Al comenzar el juego, cada jugador lanza un dado de 6 caras.\n";
-    std::cout << "  Quien saque el valor más alto comienza la partida.\n";
+    std::cout << "  Quien saque el valor mï¿½s alto comienza la partida.\n";
     std::cout << "  En caso de empate, se repite la tirada.\n";
 
-    std::cout << "\nDINÁMICA DE CADA RONDA:\n";
+    std::cout << "\nDINï¿½MICA DE CADA RONDA:\n";
     std::cout << "- El jugador que inicia lanza los dos dados de 12 caras.\n";
     std::cout << "- Luego lanza los dados stock (dados de 6 caras que tenga en su poder).\n";
     std::cout << "- Los dados que tiene cada jugador se denominan \"dados stock\" y pueden\n";
     std::cout << "  variar de una ronda a otra.\n";
 
     std::cout << "\nPUNTAJE:\n";
-    std::cout << "- Después de ambos lanzamientos, se determina el puntaje basado en\n";
-    std::cout << "  condiciones que combinan el azar y el uso de operaciones matemáticas.\n";
+    std::cout << "- Despuï¿½s de ambos lanzamientos, se determina el puntaje basado en\n";
+    std::cout << "  condiciones que combinan el azar y el uso de operaciones matemï¿½ticas.\n";
 
     std::cout << "\nIMPORTANTE:\n";
-    std::cout << "- El juego finaliza después de 3 rondas y gana quien tenga más puntos.\n";
-    std::cout << "- Las reglas completas de puntuación se explican durante el juego.\n";
+    std::cout << "- El juego finaliza despuï¿½s de 3 rondas y gana quien tenga mï¿½s puntos.\n";
+    std::cout << "- Las reglas completas de puntuaciï¿½n se explican durante el juego.\n";
     std::cout << "=======================================================================\n\n";
 }
 
+void creditos() { // Funcion que muestra los creditos del juego.
+    // Guardo los nombres, apellidos y numero de legajo de los participantes.
+    cout << " CREDITOS DEL JUEGO " << endl;
+    cout << endl;
+
+    cout << " Nombre del grupo: Grupo 2 " << endl;
+    cout << endl;
+
+    cout << " Nombres, apellidos y legajos de los participantes " << endl;
+    cout << endl;
+
+    cout << " Miguel Guimar Salazar: 32530 " << endl;
+    cout << " Ramiro Joel Kriguer: 33446 " << endl;
+    cout << " Fernando Gabriel Quiroga: 33404 " << endl;
+    cout << " Federico Wachenschwan: 22561 " << endl;
+
+    cout << " MENCION ESPECIALES Para: " << endl;
+    cout << endl;
+
+    cout << " Ãconos obtenidos de Freepik y logo hecho en Logo Maker. " << endl;
+    cout << " Juego inventado por Angel SimÃ³n. Levemente inspirado en el juego Mafia. " << endl;
+    cout << " Anexo " << endl;
+}
 
 
