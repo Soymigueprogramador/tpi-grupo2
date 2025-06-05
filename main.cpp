@@ -70,10 +70,7 @@ int main()
             system("pause");
             break;
 
-        case 5:
-            creditos();
-            system("pause");
-            break;
+        
         
         }
     }

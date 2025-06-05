@@ -47,7 +47,6 @@ int menuOpciones() { // Funcion que muestra el menu principal dl juego.
         cout << "2. Estadistica\n";
         cout << "3. Creditos\n";
         cout << "4. Reglamento\n";
-        cout << "5. Creditos\n";
         cout << "0. Salir\n";
         cout << "Ingrese una opcion: ";
         cin >> opciones;
@@ -117,23 +116,3 @@ void creditos() { // Funcion que muestra los creditos del juego.
     cout << " Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia. " << endl;
     cout << " Anexo " << endl;
 }
-
-    cout << " Nombre del grupo: Grupo 2 " << endl;
-    cout << endl;
-
-    cout << " Nombres, apellidos y legajos de los participantes " << endl;
-    cout << endl;
-
-    cout << " Miguel Guimar Salazar: 32530 " << endl;
-    cout << " Ramiro Joel Kriguer: 33446 " << endl;
-    cout << " Fernando Gabriel Quiroga: 33404 " << endl;
-    cout << " Federico Wachenschwan: 22561 " << endl;
-
-    cout << " MENCION ESPECIALES Para: " << endl;
-    cout << endl;
-
-    cout << " Íconos obtenidos de Freepik y logo hecho en Logo Maker. " << endl;
-    cout << " Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia. " << endl;
-    cout << " Anexo " << endl;
-}
-
