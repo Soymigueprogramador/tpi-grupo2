@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <limits>
+#include <string>
 #include <cstdlib>
 #include <ctime>
 #include "funciones.h"
@@ -19,8 +20,12 @@ int dadoDoceCaras();
 
 int main()
 {
+    srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
-    Jugadores jugadores[2];
+
+    string nombreJugador1, nombreJugador2;
+    int puntajeJugador1 = 0, puntajeJugador2 = 0;
+    int dadosStockJugador1 = 6, dadosStockJugador2 = 6;
 
     int opcion;
     bool finalizar = false;
@@ -46,15 +51,20 @@ int main()
             cout << " Comenzara el juego " << endl;
                         // Pedir nombres
                 cout << "Ingrese nombre del jugador 1: ";
-                cin >> jugadores[0].nombre;
+                cin >> nombreJugador1;
                 cout << "Ingrese nombre del jugador 2: ";
-                cin >> jugadores[1].nombre;
+                cin >> nombreJugador2;
 
-                        // Decidir qui�n empieza
+                        // Decidir quién empieza
                 int quienEmpieza;
-                quienEmpieza = decidirQuienEmpieza(jugadores);
+                quienEmpieza = decidirQuienEmpieza(nombreJugador1, nombreJugador2);
 
-                cout << "Comienza el jugador: " << jugadores[quienEmpieza].nombre << endl;
+                if (quienEmpieza == 0) {
+                    cout << nombreJugador1 << " empieza el juego." << endl;
+                } else {
+                    cout << nombreJugador2 << " empieza el juego." << endl;
+                }
+
 
                 system("pause");
                 tirarDados();

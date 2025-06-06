@@ -1,13 +1,9 @@
 #pragma once
 #include <string>
 
-struct Jugadores {
-    std::string nombre;
-    int puntajeTotal = 0; 
-    int dadosStock = 6;   
-};
 
-int decidirQuienEmpieza(Jugadores jugadores[]);
+
+int decidirQuienEmpieza(std::string nombre1, std::string nombre2);
 int menuOpciones();
 void reglamento();
 void creditos();

@@ -2,13 +2,13 @@
 #include <cstdlib>
 #include <ctime>
 #include "funciones.h"
-#include <limits>
-#include <limits>
+#include "rlutil.h"
+#include <string>
 using namespace std;
 
 
 
-int decidirQuienEmpieza(Jugadores jugadores[]) {
+int decidirQuienEmpieza(string nombre1, string nombre2) {
     int dado_j1, dado_j2;
 
     
@@ -20,8 +20,8 @@ int decidirQuienEmpieza(Jugadores jugadores[]) {
         dado_j1 = (rand() % 6) + 1;
         dado_j2 = (rand() % 6) + 1;
 
-        cout << jugadores[0].nombre << " saco un " << dado_j1 << endl;
-        cout << jugadores[1].nombre << " saco un " << dado_j2 << endl;
+        cout << nombre1 << " saco un " << dado_j1 << endl;
+        cout << nombre2 << " saco un " << dado_j2 << endl;
 
         if (dado_j1 == dado_j2) {
             cout << "¡Empate! Se vuelve a tirar." << endl << endl;
@@ -60,32 +60,53 @@ void tirarDados() { //Tira los dados, muestra el resultado y pregunta al jugador
     } while ( opcion == "s" || opcion == "S" );
 }
 
+
+
+
+
+
+
 int menuOpciones() { // Funcion que muestra el menu principal dl juego.
     int opciones;
     bool opcionValida = false;
 
     do {
+        rlutil::cls();
         cout << "\n--- MENU DE OPCIONES ---\n";
         cout << "1. Jugar\n";
         cout << "2. Estadistica\n";
         cout << "3. Creditos\n";
         cout << "4. Reglamento\n";
-        cout << "0. Salir\n";
+        cout << "0. Salirl\n";
         cout << "Ingrese una opcion: ";
         cin >> opciones;
 
-        if (opciones >= 0 && opciones <= 5) {
+        if (cin.fail()) {
+            cout << "Entrada invalida. Intente nuevamente.\n";
+            cin.clear();
+            cin.ignore(10000, '\n'); // Limpia el buffer de entrada para que no afecte a la siguiente entrada
+            rlutil::msleep(1000);
+            rlutil::cls();  // Duerme 1 segundo y limpia la pantalla (no afecta al menu)
+        } else if (opciones >= 0 && opciones <= 4) {
             opcionValida = true;
         } else {
-            cout << "La opcion " << opciones << " no es valida. Intente nuevamente.\n";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "La opcion " << opciones << " no es valida. Intente nuevamente.";
+            rlutil::msleep(1000);
+            rlutil::cls(); // Lo mismo que arriba
         }
     } while (!opcionValida);
 
     return opciones;
 
 }
+
+
+
+
+
+
+
+
 void reglamento() { // Funcion que muestra el reglamento del juego.
     std::cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
     std::cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
