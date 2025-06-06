@@ -11,3 +11,5 @@ int decidirQuienEmpieza(Jugadores jugadores[]);
 int menuOpciones();
 void reglamento();
 void creditos();
+int dadoDoceCaras();
+void tirarDados();

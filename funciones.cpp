@@ -37,6 +37,29 @@ int decidirQuienEmpieza(Jugadores jugadores[]) {
     }
 }
 
+// Funcion para crear un dado de 12 caras.
+int dadoDoceCaras() {
+    return rand() % 12 + 1; // Crea un numero entre el 1 y el 12.
+
+}
+
+// Funcion para tirar los dados.
+void tirarDados() { //Tira los dados, muestra el resultado y pregunta al jugador si quiere volver a tirar un dado.
+    string opcion;
+
+    do
+    {
+        int resultado = dadoDoceCaras();
+
+        cout << " Al tirar un dado el resultado es: " << resultado << endl;
+        cout << endl;
+
+        cout << " ¿ Queres tirar otro dado ? " << endl;
+        cin >> opcion;
+
+    } while ( opcion == "s" || opcion == "S" );
+}
+
 int menuOpciones() { // Funcion que muestra el menu principal dl juego.
     int opciones;
     bool opcionValida = false;

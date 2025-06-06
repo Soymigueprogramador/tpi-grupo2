@@ -9,8 +9,12 @@
 #include "funciones.cpp"
 using namespace std;
 
+
 // Funcion para mostrar el menu.
 int menuOpciones();
+
+// Funcion para crear los dados de 12 caras.
+int dadoDoceCaras();
 
 
 int main()
@@ -53,6 +57,7 @@ int main()
                 cout << "Comienza el jugador: " << jugadores[quienEmpieza].nombre << endl;
 
                 system("pause");
+                tirarDados();
                 break;
 
         case 2:
