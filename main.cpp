@@ -7,9 +7,8 @@
 #include "funciones.h"
 #include "rlutil.h"
 #include <vector>
-#include "funciones.cpp"
 #include "vectores.h"
-
+#include "funciones.cpp"
 using namespace std;
 
 
@@ -27,9 +26,9 @@ int main()
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
-    const int TAM = 6;
-int dadosStockJ1[TAM] = {};
-int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
+    const int TAM = 250; // La cantidad de dados que existen normalmente
+    int dadosStockJ1[TAM] = {};
+    int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
 
     int opcion;
     bool finalizar = false;

@@ -1,9 +1,11 @@
-#ifndef FUNCIONES_H_INCLUDED
-#define FUNCIONES_H_INCLUDED
+#ifndef VECTORES_H_INCLUDED
+#define VECTORES_H_INCLUDED
 
-///Agregar #include<ctime> en main() para que funcione
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-/// DECLARACI�N/PROTOTIPO DE FUNCIONES
+/// DECLARACION/PROTOTIPO DE FUNCIONES
 void cargarVector(int v[], int tam);///asigna valores a cada una de las posiciones del vector
 
 void mostrarVector(int v[], int tam);/// muestra lo que contiene cada una de las posiciones del vector
@@ -79,7 +81,7 @@ void cargarAleatorio(int v[], int tam, int limite){
 void mostrarVector(int v[], int tam){
     int i;
     for(i=0;i<tam;i++){
-        cout<<v[i]<<"\t";
+        std::cout<<v[i]<<"\t";
     }
 }
 
@@ -128,11 +130,11 @@ bool compararVectores(int v[], int v2[],int tam ){
 void cargarVector(int v[], int tam){
     int i;
     for(i=0;i<tam;i++){
-        cout<<"INGRESE NUMERO: ";
-        cin>>v[i];
+        std::cout<<"INGRESE NUMERO: ";
+        std::cin>>v[i];
     }
 }
 
 
 
-#endif // FUNCIONES_H_INCLUDED
+#endif // VECTORES_H_INCLUDED
