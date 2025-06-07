@@ -6,6 +6,53 @@
 #include <string>
 using namespace std;
 
+void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& puntosInicial, int& puntosOponente) { 
+
+    for (int ronda = 1; ronda <= 3; ronda++) {
+        rlutil::msleep(2000); 
+        rlutil::cls(); 
+        cout << "Ronda " << ronda << endl;
+       
+        rlutil::msleep(2000);
+        rlutil::cls();
+       
+        cout << jugadorInicial << " tira el dado de 12 caras..." << endl;
+
+        rlutil::msleep(2000);
+
+        int dado1 = dadoDoceCaras();
+        cout << dado1 << endl; // Primer dado de 12 caras
+        
+        cout << "Tirando otro dado de 12 caras..." << endl;
+        rlutil::msleep(2000);
+        int dado2 = dadoDoceCaras();
+        cout << dado2 << endl; // Segundo dado de 12 caras
+
+        int numeroObjetivo = dado1 + dado2; // Numero objetivo es la suma de los dos dados de 12 caras
+        cout << "El numero objetivo es: " << numeroObjetivo << " del jugador: " << jugadorInicial << endl;
+        rlutil::msleep(2000);
+        for (int i = 0; i < 6; i++) {
+        dadosInicial[i] = (rand() % 6) + 1; // Genera 6 números aleatorios entre 1 y 6 simulando la tirada de 6 dados. Se guardan en el array
+        }
+
+        cout << "Dados obtenidos: ";
+        for (int i = 0; i < 6; i++) {
+        cout << dadosInicial[i] << " "; // Muestra los dados obtenidos
+        }
+        rlutil::anykey();
+
+
+
+
+
+        cout << "Fin de la ronda " << ronda << endl;
+        
+    }
+    cout << "Fin del juego. ¡Gracias por jugar!" << endl;
+}
+
+
+
 
 
 int decidirQuienEmpieza(string nombre1, string nombre2) {
@@ -13,27 +60,32 @@ int decidirQuienEmpieza(string nombre1, string nombre2) {
 
     
     do {
+        rlutil::msleep(2000);
         cout << "Tirando dados para ver quien empieza..." << endl;
-        system("pause"); 
+        
 
         // Cada jugador tira UN solo dado de 6 caras
         dado_j1 = (rand() % 6) + 1;
         dado_j2 = (rand() % 6) + 1;
 
         cout << nombre1 << " saco un " << dado_j1 << endl;
+        rlutil::msleep(2000);
         cout << nombre2 << " saco un " << dado_j2 << endl;
 
         if (dado_j1 == dado_j2) {
             cout << "¡Empate! Se vuelve a tirar." << endl << endl;
+            rlutil::msleep(2000);
         }
 
     } while (dado_j1 == dado_j2); // El bucle se repite si los dados son iguales
 
     
     if (dado_j1 > dado_j2) {
-        return 0; // Gana el jugador 1
+        return 0;
+        // Gana el jugador 1
     } else {
-        return 1; // Gana el jugador 2 
+        return 1; // Gana el jugador 2
+        
     }
 }
 
