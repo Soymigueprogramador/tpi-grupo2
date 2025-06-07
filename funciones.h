@@ -9,4 +9,4 @@ void reglamento();
 void creditos();
 int dadoDoceCaras();
 void tirarDados();
-void jugarPartida(std::string jugadorInicial, std::string jugadorOponente, int dadosInicial[], int dadosOponente[], int& puntosInicial, int& puntosOponente);
+void jugarPartida(std::string jugadorInicial, std::string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente);
