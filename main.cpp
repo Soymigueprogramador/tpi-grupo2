@@ -15,15 +15,24 @@ using namespace std;
 
 // Funcion para mostrar el menu.
 int menuOpciones();
-
+// Funcion "Presentación"
+void mostrarPresentacion(); 
 // Funcion para crear los dados de 12 caras.
 int dadoDoceCaras();
 
 
 int main()
 {
+    
+        
+
+
+
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
-    //Declaro estructura para jugadores
+  
+
+     mostrarPresentacion(); //Inicializa presentación antes del MENU OPCIONES
+
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
@@ -54,6 +63,7 @@ int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) e
         case 1:
             rlutil::cls();
                         
+            
             cout << " Comenzará el juego " << endl;
                         // Pedir nombres
                 cout << "Ingrese nombre del jugador 1: ";

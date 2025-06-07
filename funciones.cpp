@@ -6,6 +6,27 @@
 #include <string>
 using namespace std;
 
+void mostrarPresentacion() {
+    rlutil::cls();  //Limpiar pantalla
+    rlutil::setColor(rlutil::YELLOW);  // Cambio color de texto a amarillo
+
+    cout << "\n\n";
+    cout << "  ***************************************" << endl;
+    cout << "  *                                     *" << endl;
+    cout << "  *    ENFRENDADOS, JUEGO DE DADOS      *" << endl;
+    cout << "  *                                     *" << endl;
+    cout << "  ***************************************" << endl;
+
+    rlutil::locate(20, 10); // Posiciona cursor aprox centro para el mensaje
+    rlutil::setColor(rlutil::LIGHTMAGENTA);
+    cout << "         PRESIONE UNA TECLA PARA CONTINUAR...";
+
+    rlutil::setColor(rlutil::WHITE); // Cambia el color del texto a blanco para dejar el texto normal después
+    rlutil::anykey();  // Espera a que el usuario presione una tecla
+    rlutil::cls(); //Limpiar Pantalla
+}
+
+    
 void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& puntosInicial, int& puntosOponente) { 
 
     for (int ronda = 1; ronda <= 3; ronda++) {
@@ -124,13 +145,27 @@ int menuOpciones() { // Funcion que muestra el menu principal dl juego.
 
     do {
         rlutil::cls();
-        cout << "\n--- MENU DE OPCIONES ---\n";
-        cout << "1. Jugar\n";
-        cout << "2. Estadistica\n";
-        cout << "3. Creditos\n";
-        cout << "4. Reglamento\n";
-        cout << "0. Salirl\n";
-        cout << "Ingrese una opcion: ";
+
+    rlutil::setColor(rlutil::CYAN);   //COLOREAR
+cout << "\n--- MENU DE OPCIONES ---\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+cout << "1. Jugar\n";
+
+    rlutil::setColor(rlutil::GREEN);
+cout << "2. Estadistica\n";
+
+    rlutil::setColor(rlutil::MAGENTA);
+cout << "3. Creditos\n";
+
+    rlutil::setColor(rlutil::BLUE);
+cout << "4. Reglamento\n";
+
+    rlutil::setColor(rlutil::RED);
+cout << "0. Salir\n";
+
+    rlutil::setColor(rlutil::WHITE);
+cout << "Ingrese una opcion: ";
         cin >> opciones;
 
         if (cin.fail()) {

@@ -2,7 +2,7 @@
 #include <string>
 
 
-
+void mostrarPresentacion(); // FUNCION DE PRESENTACIÓN
 int decidirQuienEmpieza(std::string nombre1, std::string nombre2);
 int menuOpciones();
 void reglamento();
