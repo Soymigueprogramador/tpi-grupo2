@@ -26,11 +26,15 @@ int main()
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
-    const int TAM = 250; // La cantidad de dados que existen normalmente
+    const int TAM = 250; // La cantidad de dados de todos los jugadores, que es 250, pero no se usa todo normalmente por eso el numero grande
     int dadosStockJ1[TAM] = {};
     int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
+    int cantDadosJ1 = 6; // Cantidad de dados que tiene cada jugador (se empieza con 6, pero va cambiando)
+    int cantDadosJ2 = 6;
 
+    // Lo de arriba parece ser lo mismo, pero dadosStock guarda QUÉ dados tiene, y cantDados guarda CUÁNTOS dados tiene cada jugador.
     int opcion;
+
     bool finalizar = false;
 
     /*
@@ -63,18 +67,25 @@ int main()
                         // Decidir quién empieza
                 int quienEmpieza;
                 quienEmpieza = decidirQuienEmpieza(nombreJugador1, nombreJugador2);
+                puntajeJugador1 = 0;
+                puntajeJugador2 = 0;
+                cantDadosJ1 = 6;
+                cantDadosJ2 = 6;
+                // Son todos reinicios de variables para cada vez que se inicia la partida
 
                 if (quienEmpieza == 0) {
                     cout << nombreJugador1 << " empieza el juego." << endl;
-                    jugarPartida(nombreJugador1, nombreJugador2, dadosStockJ1, dadosStockJ2, puntajeJugador1, puntajeJugador2);
+                    jugarPartida(nombreJugador1, nombreJugador2, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
                     
                 } else {
                     cout << nombreJugador2 << " empieza el juego." << endl;
-                    jugarPartida(nombreJugador2, nombreJugador1, dadosStockJ1, dadosStockJ2, puntajeJugador1, puntajeJugador2);
+                    jugarPartida(nombreJugador2, nombreJugador1, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
                     
                 }
                 rlutil::msleep(2000); 
                 rlutil::cls();
+
+                // Acá podemos hacer el if de si la cantidad de dados es 0, gana el que no tiene dados y tambien se muestra todo el puntaje final y eso
                 ;
                 break;
 

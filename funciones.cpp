@@ -6,17 +6,27 @@
 #include <string>
 #include "vectores.h"
 using namespace std;
+// se puede confundir, pero cantDadosInicial, jugadorInicial, dadosInicial y todo lo que sea Inicial se refiere al primer jugador (contrario al oponente)
+void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente) { 
 
-void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& puntosInicial, int& puntosOponente) { 
+    // dadosInicial es el array, y cantDadosInicial es cuántos dados tiene
+
+
 
     for (int ronda = 1; ronda <= 3; ronda++) {
         rlutil::msleep(2000); 
         rlutil::cls(); 
         cout << "Ronda " << ronda << endl;
-       
+        cout << "----------------------------------------------------------------" << endl; // puntosInicial y puntosOponente es el total en todas las rondas
+        cout << "Puntajes de " << jugadorInicial << ": " << puntosInicial << endl;
+        
+        cout << "Puntajes de " << jugadorOponente << ": " << puntosOponente << endl;
+        cout << "----------------------------------------------------------------" << endl;
+        cout << "Dados de " << jugadorInicial << " (" << cantDadosInicial << "): " << endl;
+        cout << "Dados de " << jugadorOponente << " (" << cantDadosOponente << ")" << endl;
+        cout << "----------------------------------------------------------------" << endl;
         rlutil::msleep(2000);
-        rlutil::cls();
-       
+        cout << "Turno de " << jugadorInicial << endl;
         cout << jugadorInicial << " tira el dado de 12 caras..." << endl;
 
         rlutil::msleep(2000);
@@ -35,36 +45,44 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
         rlutil::msleep(2000);
         cout << "Ahora " << jugadorInicial << " tira el dado de 6 caras..." << endl;
         rlutil::msleep(2000);
-        for (int i = 0; i < 6; i++) {
-        dadosInicial[i] = (rand() % 6) + 1; // Genera 6 números aleatorios entre 1 y 6 simulando la tirada de 6 dados. Se guardan en el array
+        for (int i = 0; i < cantDadosInicial; i++) {
+        dadosInicial[i] = (rand() % 6) + 1; // Genera X (depende cuántos dados tiene el jugador) de números aleatorios entre 1 y 6 simulando la tirada de 6 dados. Se guardan en el array
         }
 
         cout << "Dados obtenidos: ";
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < cantDadosInicial; i++) {
         cout << dadosInicial[i] << " "; // Muestra los dados obtenidos
         
         }
         cout << " " << endl;
         rlutil::anykey();
-        int cantidad;
+        int cantASumar;
 do {
     cout << "¿Cuántos dados querés sumar? (no podés elegir 1 solo): ";
-    cin >> cantidad;
-} while (cantidad < 2 || cantidad > 6);
 
-int indices[6]; // las posiciones de los dados elegidos por el usuario
-bool usado[6] = {false}; // para marcar si un dado ya fue usado inicializamos todos en false
-int dadosElegidos[6]; // para guardar los dados elegidos por el usuario
+    cin >> cantASumar; // El usuario mismo pone un valor a la variable, por lo que no hay valor basura
+
+} while (cantASumar < 2 || cantASumar > cantDadosInicial);
 
 
-for (int i = 0; i < cantidad; i++) {
-    int ind;
+
+// cantASumar abarca la cantidad de dados que el usuario eligió, y por lo tanto lo que se le va a sumar al oponente si es que la tirada es existosa
+
+
+
+int indices[cantASumar]; // las posiciones de los dados elegidos por el usuario
+bool usado[cantDadosInicial] = {false}; // para marcar si un dado ya fue usado inicializamos todos en false
+int dadosElegidos[cantASumar]; // para guardar los dados elegidos por el usuario
+
+
+for (int i = 0; i < cantASumar; i++) {
+    int ind; // ind de indice, pero referido a la posicion. indices abarcaría todos los indices
     do {
         cout << "Ingresá el número del dado #" << (i + 1) << " que querés usar (del 1 a 6): ";
         cin >> ind;
-        ind--;  // Al comenzar los arrays desde 0, y el usuario ve del 1 al 6, le restamos 1 para que coincida con el índice del array
+        ind--;  // Al comenzar los arrays desde 0, y por ejemplo el usuario ve del 1 al 6, le restamos 1 para que coincida con el índice del array
 
-        if (ind < 0 or ind > 5) {
+        if (ind < 0 or ind >= cantDadosInicial) {
             cout << "Posición inválida. Debe ser un número entre 1 y 6. ";
         } else if (usado[ind]) {    /* Como inicializamos todos los arrays en falso, 
                                     si el dado fue elegido (por ejemplo elegimos la posicion 2, que es ind = 1) se pone en true,
@@ -72,33 +90,64 @@ for (int i = 0; i < cantidad; i++) {
             cout << "Ese dado ya fue usado. ";
         }
 
-    } while (ind < 0 or ind > 5 or usado[ind]);
+    } while (ind < 0 or ind >= cantDadosInicial or usado[ind]);
 
     indices[i] = ind; // Por ejemplo, si pasamos por la iteración 2, y el usuario elige el dado de la posición 2, entonces queda indices[2] = 1 (por el ind-- que hicimos)
 
     usado[ind] = true;  // Acá se pone en true como dije, para que no se repita y cumpla el if
 
-    dadosElegidos[i] = dadosInicial[ind]; // Guardamos el dado elegido en el array dadosElegidos
+    dadosElegidos[i] = dadosInicial[ind];
+     /* Guardamos el dado elegido en el array dadosElegidos. 
+     Por ejemplo, dadosElegidos[0] (de la iteracción) va a valer lo que valga dadosInicial[ de la posicion 1 del indice], que puede valer 3 
+     */
 
     
 }
 
-     int sumaSeleccionada = sumarVector(dadosElegidos, cantidad); // Llama a la funcion de vectores.h y suma los dados elegidos por el usuario
+     int sumaSeleccionada = sumarVector(dadosElegidos, cantASumar); // Llama a la funcion de vectores.h y suma los dados elegidos por el usuario
         if (sumaSeleccionada == numeroObjetivo) {
             cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidos, cantidad);
+            mostrarVector(dadosElegidos, cantASumar);
+            rlutil::msleep(2000);
             cout << " Es correcta" << endl;
+            int puntosRonda = numeroObjetivo * cantASumar; // Puntos de la ronda es el numero objetivo por la cantidad de dados que se eligieron
+            puntosInicial += puntosRonda; // Se suman los puntos de la ronda al puntaje total del jugador inicial
+            
+
+
+
+                // En este if verdadero, se debe desarrollar la logica de que el jugador inicial le da los dados elegidos al oponente, y se los suma a su stock
+                // y tambien, de que si se queda sin dados, es victoria y se termina el juego
+
+
+
+
+
+
+
         
         }                                           // Corrobora si la suma seleccionada es igual al numero objetivo
         else {
             cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidos, cantidad);
+            mostrarVector(dadosElegidos, cantASumar);
+            rlutil::msleep(2000);
             cout << " Es incorrecta" << endl;
+
+
+
+
+            // en este else, hay que desarrollar la logica de que el jugador recibe un dado del oponente SI es que tiene más de uno
+
+
+
+
+
         }
 
 
 
-
+        // Acá se repite todo lo anterior, pero para el jugador oponente
+        // es mas que nada reemplazar las variables
 
 
 
