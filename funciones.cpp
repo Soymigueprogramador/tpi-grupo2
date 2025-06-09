@@ -6,6 +6,9 @@
 #include <string>
 #include "vectores.h"
 using namespace std;
+
+// se puede confundir, pero cantDadosInicial, jugadorInicial, dadosInicial y todo lo que sea Inicial se refiere al primer jugador (contrario al oponente)
+
 // se puede confundir, pero cantDadosInicial, jugadorInicial, dadosInicial y todo lo que sea Inicial se refiere al primer jugador (contrario al oponente)
 void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente) { 
 
@@ -113,6 +116,33 @@ for (int i = 0; i < cantASumar; i++) {
             int puntosRonda = numeroObjetivo * cantASumar; // Puntos de la ronda es el numero objetivo por la cantidad de dados que se eligieron
             puntosInicial += puntosRonda; // Se suman los puntos de la ronda al puntaje total del jugador inicial
             
+            // Transferir los dados al oponente.
+            for (int i = 0; i < cantASumar; i++)
+            {
+                dadosOponente[cantDadosOponente] = dadosElegidos[i]; // Le pasas los dados al oponente.
+                cantDadosOponente++;
+            }
+
+            cantDadosInicial -= cantASumar; // El jugador inicial pierde sus dados.
+
+            if (cantDadosInicial <= 0)
+            {
+                cout << jugadorInicial << " se quedó sin dados y ganó la partida!" << endl;
+                return;
+            }
+
+            // Se verificasi el oponente tiene mas de 1 dado.
+            if (cantDadosOponente > 1)
+            {
+                dadosInicial[cantDadosInicial] = dadosOponente[cantDadosOponente - 1];
+                cantDadosInicial++; // Al jugador inicial se le da 1 dado.
+                cantDadosOponente--; // El oponente se queda con 1 dado menos.
+                cout << jugadorInicial << " recibió un dado de su oponente." << endl;
+            }
+            else
+            {
+                cout << "El oponente no tiene dados suficientes para entregar." << endl;
+            }
 
 
 
@@ -162,14 +192,28 @@ for (int i = 0; i < cantASumar; i++) {
 
 
 
-int decidirQuienEmpieza(string nombre1, string nombre2) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int decidirQuienEmpieza(string nombre1, string nombre2)
+{
     int dado_j1, dado_j2;
 
-    
-    do {
+    do
+    {
         rlutil::msleep(2000);
         cout << "Tirando dados para ver quien empieza..." << endl;
-        
 
         // Cada jugador tira UN solo dado de 6 caras
         dado_j1 = (rand() % 6) + 1;
@@ -179,31 +223,35 @@ int decidirQuienEmpieza(string nombre1, string nombre2) {
         rlutil::msleep(2000);
         cout << nombre2 << " sacó un " << dado_j2 << endl;
 
-        if (dado_j1 == dado_j2) {
-            cout << "¡Empate! Se vuelve a tirar." << endl << endl;
+        if (dado_j1 == dado_j2)
+        {
+            cout << "¡Empate! Se vuelve a tirar." << endl
+                 << endl;
             rlutil::msleep(2000);
         }
 
     } while (dado_j1 == dado_j2); // El bucle se repite si los dados son iguales
 
-    
-    if (dado_j1 > dado_j2) {
+    if (dado_j1 > dado_j2)
+    {
         return 0;
         // Gana el jugador 1
-    } else {
+    }
+    else
+    {
         return 1; // Gana el jugador 2
-        
     }
 }
 
 // Funcion para crear un dado de 12 caras.
-int dadoDoceCaras() {
+int dadoDoceCaras()
+{
     return rand() % 12 + 1; // Crea un numero entre el 1 y el 12.
-
 }
 
 // Funcion para tirar los dados.
-void tirarDados() { //Tira los dados, muestra el resultado y pregunta al jugador si quiere volver a tirar un dado.
+void tirarDados()
+{ // Tira los dados, muestra el resultado y pregunta al jugador si quiere volver a tirar un dado.
     string opcion;
 
     do
@@ -216,20 +264,16 @@ void tirarDados() { //Tira los dados, muestra el resultado y pregunta al jugador
         cout << " ¿ Queres tirar otro dado ? " << endl;
         cin >> opcion;
 
-    } while ( opcion == "s" || opcion == "S" );
+    } while (opcion == "s" || opcion == "S");
 }
 
-
-
-
-
-
-
-int menuOpciones() { // Funcion que muestra el menu principal dl juego.
+int menuOpciones()
+{ // Funcion que muestra el menu principal dl juego.
     int opciones;
     bool opcionValida = false;
 
-    do {
+    do
+    {
         rlutil::cls();
         cout << "\n--- MENU DE OPCIONES ---\n";
         cout << "1. Jugar\n";
@@ -240,15 +284,20 @@ int menuOpciones() { // Funcion que muestra el menu principal dl juego.
         cout << "Ingrese una opcion: ";
         cin >> opciones;
 
-        if (cin.fail()) {
+        if (cin.fail())
+        {
             cout << "Entrada invalida. Intente nuevamente.\n";
             cin.clear();
             cin.ignore(10000, '\n'); // Limpia el buffer de entrada para que no afecte a la siguiente entrada
             rlutil::msleep(1000);
-            rlutil::cls();  // Duerme 1 segundo y limpia la pantalla (no afecta al menu)
-        } else if (opciones >= 0 && opciones <= 4) {
+            rlutil::cls(); // Duerme 1 segundo y limpia la pantalla (no afecta al menu)
+        }
+        else if (opciones >= 0 && opciones <= 4)
+        {
             opcionValida = true;
-        } else {
+        }
+        else
+        {
             cout << "La opcion " << opciones << " no es valida. Intente nuevamente.";
             rlutil::msleep(1000);
             rlutil::cls(); // Lo mismo que arriba
@@ -256,17 +305,10 @@ int menuOpciones() { // Funcion que muestra el menu principal dl juego.
     } while (!opcionValida);
 
     return opciones;
-
 }
 
-
-
-
-
-
-
-
-void reglamento() { // Funcion que muestra el reglamento del juego.
+void reglamento()
+{ // Funcion que muestra el reglamento del juego.
     std::cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
     std::cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
     std::cout << "con las matem�ticas. El objetivo es sumar la mayor cantidad de puntos\n";
@@ -296,7 +338,8 @@ void reglamento() { // Funcion que muestra el reglamento del juego.
     std::cout << "=======================================================================\n\n";
 }
 
-void creditos() { // Funcion que muestra los creditos del juego.
+void creditos()
+{ // Funcion que muestra los creditos del juego.
     // Guardo los nombres, apellidos y numero de legajo de los participantes.
     cout << " CREDITOS DEL JUEGO " << endl;
     cout << endl;
@@ -319,3 +362,8 @@ void creditos() { // Funcion que muestra los creditos del juego.
     cout << " Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia. " << endl;
     cout << " Anexo " << endl;
 }
+
+
+
+
+
