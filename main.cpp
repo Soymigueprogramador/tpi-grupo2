@@ -91,16 +91,19 @@ int main()
 
         case 2:
             cout << " Se mostraran las estadisticas del juego " << endl;
-            rlutil::cls();
+            rlutil::anykey();  // Espera a que el usuario lea el contenido
+            rlutil::cls();     // Recién ahora limpia
             break;
 
         case 3:
             creditos();
+            rlutil::anykey();  
             rlutil::cls();
             break;
 
         case 4:
             reglamento();
+            rlutil::anykey();   
             rlutil::cls();
             break;
 
