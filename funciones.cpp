@@ -16,7 +16,8 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
 
 
 
-    for (int ronda = 1; ronda <= 3; ronda++) {
+    for (int ronda = 1; ronda <= 3; ronda++) // entra en una ronda de 3
+     {
         rlutil::msleep(2000);
         rlutil::cls();
         cout << "Ronda " << ronda << endl;
@@ -25,8 +26,8 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
 
         cout << "Puntajes de " << jugadorOponente << ": " << puntosOponente << endl;
         cout << "----------------------------------------------------------------" << endl;
-        cout << "Dados de " << jugadorInicial << " " << cantDadosInicial   << endl;
-        cout << "Dados de " << jugadorOponente << " " << cantDadosOponente  << endl;
+        cout << "Dados de " << jugadorInicial << ": " << cantDadosInicial   << endl;
+        cout << "Dados de " << jugadorOponente << ": " << cantDadosOponente  << endl;
         cout << "----------------------------------------------------------------" << endl;
         rlutil::msleep(2000);
         cout << "Turno de " << jugadorInicial << endl;
@@ -49,7 +50,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
         cout << "Ahora " << jugadorInicial << " tira el dado de 6 caras..." << endl;
         rlutil::msleep(2000);
         for (int i = 0; i < cantDadosInicial; i++) {
-        dadosInicial[i] = (rand() % 6) + 1; // Genera X (depende cuántos dados tiene el jugador) de números aleatorios entre 1 y 6 simulando la tirada de 6 dados. Se guardan en el array
+        dadosInicial[i] = (rand() % 6) + 1; // Genera los dados aleatorios y los va guardando en el array
         }
 
         cout << "Dados obtenidos: ";
@@ -59,107 +60,128 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
         }
         cout << " " << endl;
         rlutil::anykey();
-        int cantASumar;
-do {
-    cout << "¿Cuántos dados querés sumar? (no podés elegir 1 solo): " << endl;
+        rlutil::cls();
 
-    cin >> cantASumar; // El usuario mismo pone un valor a la variable, por lo que no hay valor basura
+        int dadosElegidos[cantDadosInicial]; // inicializamos dadosElegidos para saber qué eligio y el cantDadosInicial es para que lo maximo sea la cantidad de dados que se tiene.
+        int sumaParcial = 0; // en cada ronda se reinicia
+        int cantDadosElegidos = 0; // lo mismo que arriba
+        bool usadoInicial[cantDadosInicial] = {false}; // pone todos los dados en falso, para que no se repitan al elegirlos. el {} pone todos los elementos en false
+        bool pasoDeTurno = false; // variable para saber si el jugador paso el turno, y no eligio ningun dado
 
-    if (cin.fail()) {
-        cout << "Entrada inválida. Debe ser un número entre 2 y " << cantDadosInicial << ". " << endl;;
-        cin.clear(); // Limpia el estado de error del flujo de entrada
-        cin.ignore(10000, '\n'); // Limpia el buffer de entrada. Sintaxis: cin.ignore(n, c); n: cantidad máxima de caracteres a ignorar. c: carácter límite
-    }
+        while (sumaParcial < numeroObjetivo) // Mientras la suma parcial sea menor al numero objetivo, se sigue eligiendo dados
+        {
+            cout << "NÚMERO OBJETIVO: " << numeroObjetivo << endl;
+            cout << "Tu suma actual es de: " << sumaParcial << endl;
+            cout << "Dados disponibles: ";
+            for (int i = 0; i < cantDadosInicial; i++)
+            {
+                cout << dadosInicial[i] << " "; // Muestra los dados disponibles
+            }
+            
+            int ind; // ind, de índice, es la variable que se usa para elegir el dado. Es como un selector
+            cout << "  " << endl;
+            cout << "Ingresá el número del dado #" << (cantDadosElegidos + 1) << " que querés usar (del 1 a " << cantDadosInicial << "): " << endl;
+            cout << "Si ingresás 0, se da por perdida la ronda" << endl;
+            cin >> ind;
+             if (ind == 0) {
+                pasoDeTurno = true; // Si el usuario ingresa 0, pasa al turno del oponente
+                break; 
+              
+                } // Si se ingresa otra cosa, como una letra, se vuelve a pedir el dado a elegir
+                if (cin.fail()) {
+                cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
+                cin.clear();
+                cin.ignore(10000, '\n'); 
+                 rlutil::msleep(1000);
+                rlutil::cls();
+                continue; }
+            ind--; // Resta 1 al índice para que empiece desde 0, ya que los arrays empiezan desde 0 y el usuario empieza desde 1
+            if (usadoInicial[ind] == true) // Si el dado ya fue usado, no se puede volver a elegir ya que más adelante lo ponemos en true
+            {
+                cout << "No puedes repetir el dado, vuelve a elegir" << endl;
+                rlutil::msleep(1000);
+                rlutil::cls();
+                continue ; // Continue va hacia el final del while, y vuelve a pedir el dado a elegir
+            }
 
-} while (cantASumar < 2 or cantASumar > cantDadosInicial);
+            
+            
+            if (ind < 0 or ind >= cantDadosInicial) {
+                cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
+                 rlutil::msleep(1000);
+                rlutil::cls();
+            } else {
+                dadosElegidos[cantDadosElegidos] = dadosInicial[ind]; // Guarda el dado elegido con el valor exacto del dado que elegió el usuario
+                sumaParcial += dadosInicial[ind]; // Suma el valor del dado elegido a la suma parcial
+                usadoInicial[ind] = true; // Es lo que dije antes, pone el dado en true para que no se pueda volver a elegir
+                cantDadosElegidos++; // Cuenta la cantidad de dados elegidos. Fundamental para pasar o restar los dados
+                rlutil::cls();
+                cout << "Elegiste el dado " << dadosInicial[ind] << endl;
 
 
 
-// cantASumar abarca la cantidad de dados que el usuario eligió, y por lo tanto lo que se le va a sumar al oponente si es que la tirada es existosa
 
+            }
 
+            if (sumaParcial == numeroObjetivo) {
+            break; } // verifica siempre que si es igual, el usuario no tiene que seguir eligiendo dados, y se salta el while
 
-int indices[cantASumar]; // las posiciones de los dados elegidos por el usuario
-bool usado[cantDadosInicial] = {false}; // para marcar si un dado ya fue usado inicializamos todos en false
-int dadosElegidos[cantASumar]; // para guardar los dados elegidos por el usuario
-
-
-for (int i = 0; i < cantASumar; i++) {
-    int ind; // ind de indice, pero referido a la posicion. indices abarcaría todos los indices
-    do {
-        cout << "Ingresá el número del dado #" << (i + 1) << " que querés usar (del 1 a 6): ";
-        cin >> ind;
-        ind--;  // Al comenzar los arrays desde 0, y por ejemplo el usuario ve del 1 al 6, le restamos 1 para que coincida con el índice del array
-        if (cin.fail()) {
-            cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
-            cin.clear(); // Limpia el estado de error del flujo de entrada
-            cin.ignore(10000, '\n'); // Limpia el buffer de entrada
-            continue; // salta al inicio del bucle do-while
         }
-        if (ind < 0 or ind >= cantDadosInicial) {
-            cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
-        } else if (usado[ind]) {    /* Como inicializamos todos los arrays en falso,
-                                    si el dado fue elegido (por ejemplo elegimos la posicion 2, que es ind = 1) se pone en true,
-                                     y si se vuelve a elegir, usado[ind] sera true, por lo que se cumple el if */
-            cout << "Ese dado ya fue usado. ";
-        }
-
-    } while (ind < 0 or ind >= cantDadosInicial or usado[ind]);
-
-    indices[i] = ind; // Por ejemplo, si pasamos por la iteración 2, y el usuario elige el dado de la posición 2, entonces queda indices[2] = 1 (por el ind-- que hicimos)
-
-    usado[ind] = true;  // Acá se pone en true como dije, para que no se repita y cumpla el if
-
-    dadosElegidos[i] = dadosInicial[ind];
-     /* Guardamos el dado elegido en el array dadosElegidos.
-     Por ejemplo, dadosElegidos[0] (de la iteracción) va a valer lo que valga dadosInicial[ de la posicion 1 del indice], que puede valer 3
-     */
 
 
-}
+        // En primer lugar hicimos que pida la cantidad de dados y luego allí elegir el dado, pero luego se hizo que el usuario elija el dado directamente, y no la cantidad de dados, ya que es más intuitivo
 
-     int sumaSeleccionada = sumarVector(dadosElegidos, cantASumar); // Llama a la funcion de vectores.h y suma los dados elegidos por el usuario
-        if (sumaSeleccionada == numeroObjetivo) {
+     int sumaSeleccionada = sumaParcial; // No era necesario esta línea, pero como tenía escrito la mayoria del siguiente código con esa variable, lo asigné
+      if (pasoDeTurno == true) {
+        cout << "El jugador " << jugadorInicial << " ha pasado su turno." << endl;
+        cout << "La ronda finaliza como no exitosa." << endl;
+        // Se aplica la penalidad por fallo.
+        if (cantDadosOponente > 1) {
+            dadosInicial[cantDadosInicial] = dadosOponente[cantDadosOponente - 1];
+            cantDadosInicial++;
+            cantDadosOponente--;
+            cout << jugadorInicial << " recibió un dado de su oponente." << endl;
+        } else {
+            cout << "El oponente no tiene dados suficientes para entregar." << endl;
+        } // Pasa al siguiente turno. Si no se pasaTurno, se sigue con el código de abajo
+    } else 
+        if (sumaSeleccionada == numeroObjetivo) { // Verifica si es igual al numeroObjetivo para saber si es tirada correcta o no
             cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidos, cantASumar);
+            mostrarVector(dadosElegidos, cantDadosElegidos);
             rlutil::msleep(2000);
             cout << " Es correcta" << endl;
-            puntosInicial += sumaSeleccionada * cantASumar; // Puntos de la ronda es el numero objetivo por la cantidad de dados que se eligieron
+            puntosInicial += sumaSeleccionada * cantDadosElegidos; // Puntos de la ronda es el numero objetivo por la cantidad de dados que se eligieron
 
 
             // Transferir los dados al oponente.
-            for (int i = 0; i < cantASumar; i++)
+            for (int i = 0; i < cantDadosElegidos; i++)
             {
-                dadosOponente[cantDadosOponente] = dadosElegidos[i]; // Le pasas los dados al oponente.
+                dadosOponente[cantDadosOponente] = dadosElegidos[i]; // Le pasas los dados al oponente, y copias su valor
+                // El cantDadosOponente++ está después porque la lógica de arrays, por ejemplo si tenemos 8 cantDadosOponente, va de 0 a 7. Al posicionarnos en 8, estamos en la siguiente posición del array
                 cantDadosOponente++;
             }
 
-            cantDadosInicial -= cantASumar; // El jugador inicial pierde sus dados.
+            cantDadosInicial -= cantDadosElegidos; // El jugador inicial pierde sus dados.
 
             if (cantDadosInicial <= 0)
             {
                 cout << jugadorInicial << " se quedó sin dados y ganó la partida!" << endl;
-                return;
+                puntosInicial += 10000; // Los suma al puntaje final
+                rlutil::anykey();
+                rlutil::cls();
+                
+                
+                return; // Vuelve al main, y verifica la victoria, que será verdadera
             }
 
-            // Se verificasi el oponente tiene mas de 1 dado.
+     
 
 
 
-                // En este if verdadero, se debe desarrollar la logica de que el jugador inicial le da los dados elegidos al oponente, y se los suma a su stock
-                // y tambien, de que si se queda sin dados, es victoria y se termina el juego
-
-
-
-
-
-
-
-
-        }                                           // Corrobora si la suma seleccionada es igual al numero objetivo
+        }         // Abajo, si la combinación es tirada fallida                                
         else {
             cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidos, cantASumar);
+            mostrarVector(dadosElegidos, cantDadosElegidos);
             rlutil::msleep(2000);
             cout << " Es incorrecta" << endl;
             if (cantDadosOponente > 1)
@@ -173,153 +195,167 @@ for (int i = 0; i < cantASumar; i++) {
             {
                 cout << "El oponente no tiene dados suficientes para entregar." << endl;
             }
+           
 
 
 
-
-            // en este else, hay que desarrollar la logica de que el jugador recibe un dado del oponente SI es que tiene más de uno
-
+            
 
 
+            // A continuacion, todo lo anterior pero para el oponente. Es solo cambios de variables, pero misma logica y estructura
 
 
         }
 
-        rlutil::anykey();
+       rlutil::anykey();
+rlutil::cls();
+cout << "Turno de " << jugadorOponente << endl;
+cout << jugadorOponente << " tira el dado de 12 caras..." << endl;
+rlutil::msleep(2000);
+int dadoOponente1 = dadoDoceCaras();
+cout << dadoOponente1 << endl;
+cout << "Tirando otro dado de 12 caras..." << endl;
+rlutil::msleep(2000);
+int dadoOponente2 = dadoDoceCaras();
+cout << dadoOponente2 << endl;
+cout << "Se sumará los dados para saber el numero objetivo..." << endl;
+rlutil::msleep(2000);
+int numeroObjetivoOponente = dadoOponente1 + dadoOponente2;
+cout << "El numero objetivo es: " << numeroObjetivoOponente << " del jugador " << jugadorOponente << endl;
+rlutil::msleep(2000);
+cout << "Ahora " << jugadorOponente << " tira el dado de 6 caras..." << endl;
+rlutil::msleep(2000);
+for (int i = 0; i < cantDadosOponente; i++) {
+    dadosOponente[i] = (rand() % 6) + 1;
+}
+cout << "Dados obtenidos: ";
+for (int i = 0; i < cantDadosOponente; i++) {
+    cout << dadosOponente[i] << " ";
+}
+cout << " " << endl;
+rlutil::anykey();
+rlutil::cls();
+
+int dadosElegidosOponente[cantDadosOponente];
+int sumaParcialOponente = 0;
+int cantDadosElegidosOponente = 0;
+bool usadoOponente[cantDadosOponente] = {false};
+bool pasoDeTurnoOponente = false;
+
+while (sumaParcialOponente < numeroObjetivoOponente)
+{
+    cout << "NÚMERO OBJETIVO: " << numeroObjetivoOponente << endl;
+    cout << "Tu suma actual es de: " << sumaParcialOponente << endl;
+    cout << "Dados disponibles: ";
+    for (int i = 0; i < cantDadosOponente; i++)
+    {
+        cout << dadosOponente[i] << " ";
+    }
+    
+    int indOponente;
+    cout << "  " << endl;
+    cout << "Ingresá el número del dado #" << (cantDadosElegidosOponente + 1) << " que querés usar (del 1 a " << cantDadosOponente << "): " << endl;
+    cout << "Si ingresás 0, se da por perdida la ronda" << endl;
+    cin >> indOponente;
+     if (indOponente == 0) {
+        pasoDeTurnoOponente = true;
+        break; 
+        }
+        if (cin.fail()) {
+        cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
+        cin.clear();
+        cin.ignore(10000, '\n');
+            rlutil::msleep(1000);
         rlutil::cls();
-        cout << "Turno de " << jugadorOponente << endl;
-        cout << jugadorOponente << " tira el dado de 12 caras..." << endl;
-        rlutil::msleep(2000);
-        int dadoOponente1 = dadoDoceCaras();
-        cout << dadoOponente1 << endl;
-        cout << "Tirando otro dado de 12 caras..." << endl;
-        rlutil::msleep(2000);
-        int dadoOponente2 = dadoDoceCaras();
-        cout << dadoOponente2 << endl;
-        cout << "Se sumará los dados para saber el numero objetivo..." << endl;
-        rlutil::msleep(2000);
-        int numeroObjetivoOponente = dadoOponente1 + dadoOponente2;
-        cout << "El numero objetivo es: " << numeroObjetivoOponente << " del jugador " << jugadorOponente << endl;
-        rlutil::msleep(2000);
-        cout << "Ahora " << jugadorOponente << " tira el dado de 6 caras..." << endl;
-        rlutil::msleep(2000);
-        for (int i = 0; i < cantDadosOponente; i++) {
-            dadosOponente[i] = (rand() % 6) + 1;
-        }
-        cout << "Dados obtenidos: ";
-        for (int i = 0; i < cantDadosOponente; i++) {
-            cout << dadosOponente[i] << " ";
-        }
-        cout << " " << endl;
-        rlutil::anykey();
-        int cantASumarOponente;
-do {
-            cout << "¿Cuántos dados querés sumar? (no podés elegir 1 solo): " << endl;
+        continue; }
+    indOponente--;
+    if (usadoOponente[indOponente] == true)
+    {
+        cout << "No puedes repetir el dado, vuelve a elegir" << endl;
+        rlutil::msleep(1000);
+        rlutil::cls();
+        continue ;
+    }
+    
+    if (indOponente < 0 or indOponente >= cantDadosOponente) {
+        cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
+            rlutil::msleep(1000);
+        rlutil::cls();
+    } else {
+        dadosElegidosOponente[cantDadosElegidosOponente] = dadosOponente[indOponente];
+        sumaParcialOponente += dadosOponente[indOponente];
+        usadoOponente[indOponente] = true;
+        cantDadosElegidosOponente++;
+        rlutil::cls();
+        cout << "Elegiste el dado " << dadosOponente[indOponente] << endl;
+    }
+    if (sumaParcialOponente == numeroObjetivoOponente) {
+        break; } // verifica siempre que si es igual, el usuario no tiene que seguir eligiendo dados, y se salta el while
+}
 
-            cin >> cantASumarOponente;
+int sumaSeleccionadaOponente = sumaParcialOponente;
+if (pasoDeTurnoOponente == true) {
+    cout << "El jugador " << jugadorOponente << " ha pasado su turno." << endl;
+    cout << "La ronda finaliza como no exitosa." << endl;
+    // Se aplica la penalidad por fallo.
+    if (cantDadosInicial > 1) {
+        dadosOponente[cantDadosOponente] = dadosInicial[cantDadosInicial - 1];
+        cantDadosOponente++;
+        cantDadosInicial--;
+        cout << jugadorOponente << " recibió un dado de su oponente." << endl;
+    } else {
+        cout << "El jugador inicial no tiene dados suficientes para entregar." << endl;
+    }
+}
+else
+if (sumaSeleccionadaOponente == numeroObjetivoOponente) {
+    cout << "Combinación elegida: ";
+    mostrarVector(dadosElegidosOponente, cantDadosElegidosOponente);
+    rlutil::msleep(2000);
+    cout << " Es correcta" << endl;
+    puntosOponente += sumaSeleccionadaOponente * cantDadosElegidosOponente;
 
-            if (cin.fail()) {
-                cout << "Entrada inválida. Debe ser un número entre 2 y " << cantDadosOponente << ". " << endl;;
-                cin.clear();
-                cin.ignore(10000, '\n');
-            }
-
-        } while (cantASumarOponente < 2 or cantASumarOponente > cantDadosOponente);
-
-        int indicesOponente[cantASumarOponente];
-        bool usadoOponente[cantDadosOponente] = {false};
-
-        int dadosElegidosOponente[cantASumarOponente];
-        for (int i = 0; i < cantASumarOponente; i++) {
-            int indOponente;
-            do {
-                cout << "Ingresá el número del dado #" << (i + 1) << " que querés usar (del 1 a " << cantDadosOponente << "): ";
-                cin >> indOponente;
-                indOponente--;
-                if (cin.fail()) {
-                    cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
-                    cin.clear();
-                    cin.ignore(10000, '\n');
-                    continue;
-                }
-                if (indOponente < 0 or indOponente >= cantDadosOponente) {
-                    cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
-                } else if (usadoOponente[indOponente]) {
-                    cout << "Ese dado ya fue usado. ";
-                }
-
-            } while (indOponente < 0 or indOponente >= cantDadosOponente or usadoOponente[indOponente]);
-
-            indicesOponente[i] = indOponente;
-            usadoOponente[indOponente] = true;
-
-            dadosElegidosOponente[i] = dadosOponente[indOponente];
-
-        }
-        int sumaSeleccionadaOponente = sumarVector(dadosElegidosOponente, cantASumarOponente);
-        if (sumaSeleccionadaOponente == numeroObjetivoOponente) {
-            cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidosOponente, cantASumarOponente);
-            rlutil::msleep(2000);
-            cout << " Es correcta" << endl;
-            puntosOponente += sumaSeleccionadaOponente * cantASumarOponente;
-
-            for (int i = 0; i < cantASumarOponente; i++)
-            {
-                dadosInicial[cantDadosInicial] = dadosElegidosOponente[i];
-                cantDadosInicial++;
-            }
-
-            cantDadosOponente -= cantASumarOponente;
-
-            if (cantDadosOponente <= 0)
-            {
-                cout << jugadorOponente << " se quedó sin dados y ganó la partida!" << endl;
-                return;
-            }
-
-
-
-        }
-        else {
-            cout << "Combinación elegida: ";
-            mostrarVector(dadosElegidosOponente, cantASumarOponente);
-            rlutil::msleep(2000);
-
-
-
-            cout << " Es incorrecta" << endl;
-            if (cantDadosInicial > 1)
-            {
-                dadosOponente[cantDadosOponente] = dadosInicial[cantDadosInicial - 1];
-                cantDadosOponente++;
-                cantDadosInicial--;
-                cout << jugadorOponente << " recibió un dado de su oponente." << endl;
-            }
-            else
-            {
-                cout << "El jugador inicial no tiene dados suficientes para entregar." << endl;
-            }
-
-
-
-
-        // Acá se repite todo lo anterior, pero para el jugador oponente
-        // es mas que nada reemplazar las variables
-
-
-
-        rlutil::anykey();
-
-
-
-
-        cout << "Fin de la ronda " << ronda << endl;
-
+    for (int i = 0; i < cantDadosElegidosOponente; i++)
+    {
+        dadosInicial[cantDadosInicial] = dadosElegidosOponente[i];
+        cantDadosInicial++;
     }
 
+    cantDadosOponente -= cantDadosElegidosOponente;
+
+    if (cantDadosOponente <= 0)
+    {
+        cout << jugadorOponente << " se quedó sin dados y ganó la partida!" << endl;
+        puntosOponente += 10000;
+                rlutil::anykey();
+                rlutil::cls();
+        return;
+    }
 }
-cout << "Fin del juego. ¡Gracias por jugar!" << endl;
+else {
+    cout << "Combinación elegida: ";
+    mostrarVector(dadosElegidosOponente, cantDadosElegidosOponente);
+    rlutil::msleep(2000);
+    cout << " Es incorrecta" << endl;
+    if (cantDadosInicial > 1)
+    {
+        dadosOponente[cantDadosOponente] = dadosInicial[cantDadosInicial - 1];
+        cantDadosOponente++;
+        cantDadosInicial--;
+        cout << jugadorOponente << " recibió un dado de su oponente." << endl;
+    }
+    else
+    {
+        cout << "El jugador inicial no tiene dados suficientes para entregar." << endl;
+    }
+    if (pasoDeTurnoOponente == true) {
+        cout << "El jugador " << jugadorOponente << " ha pasado su turno." << endl;
+        
+    }
+}
+rlutil::anykey();
+
+}
 
 }
 

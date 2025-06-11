@@ -86,8 +86,22 @@ int main()
                 rlutil::msleep(2000);
                 rlutil::cls();
 
-                // Acá podemos hacer el if de si la cantidad de dados es 0, gana el que no tiene dados y tambien se muestra todo el puntaje final y eso
-                ;
+                // Acá podemos hacer que se muestra todo el puntaje final y eso
+                // Después de la llamada a jugarPartida() y la actualización de estadísticas
+                cout << "============ FIN DE LA PARTIDA ============" << endl;
+                cout << "Puntaje final de " << nombreJugador1 << ": " << puntajeJugador1 << endl;
+                cout << "Puntaje final de " << nombreJugador2 << ": " << puntajeJugador2 << endl;
+                cout << "------------------------------------------" << endl;
+
+                if (puntajeJugador1 > puntajeJugador2) {
+                    cout << "¡El ganador es " << nombreJugador1 << "!" << endl;
+                } else if (puntajeJugador2 > puntajeJugador1) {
+                    cout << "¡El ganador es " << nombreJugador2 << "!" << endl;
+                } else {
+                    cout << "¡La partida ha terminado en empate!" << endl;
+                }
+                cout << "==========================================" << endl;
+                rlutil::anykey();
                 break;
 
         case 2:
