@@ -23,6 +23,7 @@ int main()
 {
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
+    mostrarPantallaInicio();
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
@@ -56,14 +57,14 @@ int main()
 
         case 1:
             rlutil::cls();
-                        
+
             cout << " Comenzará el juego " << endl;
                         // Pedir nombres
                 cout << "Ingrese nombre del jugador 1: ";
                 cin >> nombreJugador1;
                 cout << "Ingrese nombre del jugador 2: ";
                 cin >> nombreJugador2;
-            
+
                         // Decidir quién empieza
                 int quienEmpieza;
                 quienEmpieza = decidirQuienEmpieza(nombreJugador1, nombreJugador2);
@@ -76,13 +77,13 @@ int main()
                 if (quienEmpieza == 0) {
                     cout << nombreJugador1 << " empieza el juego." << endl;
                     jugarPartida(nombreJugador1, nombreJugador2, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
-                    
+
                 } else {
                     cout << nombreJugador2 << " empieza el juego." << endl;
                     jugarPartida(nombreJugador2, nombreJugador1, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
-                    
+
                 }
-                rlutil::msleep(2000); 
+                rlutil::msleep(2000);
                 rlutil::cls();
 
                 // Acá podemos hacer el if de si la cantidad de dados es 0, gana el que no tiene dados y tambien se muestra todo el puntaje final y eso
@@ -97,18 +98,18 @@ int main()
 
         case 3:
             creditos();
-            rlutil::anykey();  
+            rlutil::anykey();
             rlutil::cls();
             break;
 
         case 4:
             reglamento();
-            rlutil::anykey();   
+            rlutil::anykey();
             rlutil::cls();
             break;
 
-        
-        
+
+
         }
     }
 

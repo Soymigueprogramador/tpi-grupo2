@@ -10,19 +10,19 @@ using namespace std;
 // se puede confundir, pero cantDadosInicial, jugadorInicial, dadosInicial y todo lo que sea Inicial se refiere al primer jugador (contrario al oponente)
 
 // se puede confundir, pero cantDadosInicial, jugadorInicial, dadosInicial y todo lo que sea Inicial se refiere al primer jugador (contrario al oponente)
-void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente) { 
+void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente) {
 
     // dadosInicial es el array, y cantDadosInicial es cuántos dados tiene
 
 
 
     for (int ronda = 1; ronda <= 3; ronda++) {
-        rlutil::msleep(2000); 
-        rlutil::cls(); 
+        rlutil::msleep(2000);
+        rlutil::cls();
         cout << "Ronda " << ronda << endl;
         cout << "----------------------------------------------------------------" << endl; // puntosInicial y puntosOponente es el total en todas las rondas
         cout << "Puntajes de " << jugadorInicial << ": " << puntosInicial << endl;
-        
+
         cout << "Puntajes de " << jugadorOponente << ": " << puntosOponente << endl;
         cout << "----------------------------------------------------------------" << endl;
         cout << "Dados de " << jugadorInicial << " " << cantDadosInicial   << endl;
@@ -36,7 +36,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
 
         int dado1 = dadoDoceCaras();
         cout << dado1 << endl; // Primer dado de 12 caras
-        
+
         cout << "Tirando otro dado de 12 caras..." << endl;
         rlutil::msleep(2000);
         int dado2 = dadoDoceCaras();
@@ -55,7 +55,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
         cout << "Dados obtenidos: ";
         for (int i = 0; i < cantDadosInicial; i++) {
         cout << dadosInicial[i] << " "; // Muestra los dados obtenidos
-        
+
         }
         cout << " " << endl;
         rlutil::anykey();
@@ -70,7 +70,7 @@ do {
         cin.clear(); // Limpia el estado de error del flujo de entrada
         cin.ignore(10000, '\n'); // Limpia el buffer de entrada. Sintaxis: cin.ignore(n, c); n: cantidad máxima de caracteres a ignorar. c: carácter límite
     }
-    
+
 } while (cantASumar < 2 or cantASumar > cantDadosInicial);
 
 
@@ -98,7 +98,7 @@ for (int i = 0; i < cantASumar; i++) {
         }
         if (ind < 0 or ind >= cantDadosInicial) {
             cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
-        } else if (usado[ind]) {    /* Como inicializamos todos los arrays en falso, 
+        } else if (usado[ind]) {    /* Como inicializamos todos los arrays en falso,
                                     si el dado fue elegido (por ejemplo elegimos la posicion 2, que es ind = 1) se pone en true,
                                      y si se vuelve a elegir, usado[ind] sera true, por lo que se cumple el if */
             cout << "Ese dado ya fue usado. ";
@@ -111,11 +111,11 @@ for (int i = 0; i < cantASumar; i++) {
     usado[ind] = true;  // Acá se pone en true como dije, para que no se repita y cumpla el if
 
     dadosElegidos[i] = dadosInicial[ind];
-     /* Guardamos el dado elegido en el array dadosElegidos. 
-     Por ejemplo, dadosElegidos[0] (de la iteracción) va a valer lo que valga dadosInicial[ de la posicion 1 del indice], que puede valer 3 
+     /* Guardamos el dado elegido en el array dadosElegidos.
+     Por ejemplo, dadosElegidos[0] (de la iteracción) va a valer lo que valga dadosInicial[ de la posicion 1 del indice], que puede valer 3
      */
 
-    
+
 }
 
      int sumaSeleccionada = sumarVector(dadosElegidos, cantASumar); // Llama a la funcion de vectores.h y suma los dados elegidos por el usuario
@@ -125,8 +125,8 @@ for (int i = 0; i < cantASumar; i++) {
             rlutil::msleep(2000);
             cout << " Es correcta" << endl;
             puntosInicial += sumaSeleccionada * cantASumar; // Puntos de la ronda es el numero objetivo por la cantidad de dados que se eligieron
-            
-            
+
+
             // Transferir los dados al oponente.
             for (int i = 0; i < cantASumar; i++)
             {
@@ -143,7 +143,7 @@ for (int i = 0; i < cantASumar; i++) {
             }
 
             // Se verificasi el oponente tiene mas de 1 dado.
-            
+
 
 
                 // En este if verdadero, se debe desarrollar la logica de que el jugador inicial le da los dados elegidos al oponente, y se los suma a su stock
@@ -155,7 +155,7 @@ for (int i = 0; i < cantASumar; i++) {
 
 
 
-        
+
         }                                           // Corrobora si la suma seleccionada es igual al numero objetivo
         else {
             cout << "Combinación elegida: ";
@@ -185,30 +185,30 @@ for (int i = 0; i < cantASumar; i++) {
 
         }
 
-        rlutil::anykey(); 
-        rlutil::cls(); 
+        rlutil::anykey();
+        rlutil::cls();
         cout << "Turno de " << jugadorOponente << endl;
         cout << jugadorOponente << " tira el dado de 12 caras..." << endl;
         rlutil::msleep(2000);
         int dadoOponente1 = dadoDoceCaras();
-        cout << dadoOponente1 << endl; 
+        cout << dadoOponente1 << endl;
         cout << "Tirando otro dado de 12 caras..." << endl;
         rlutil::msleep(2000);
         int dadoOponente2 = dadoDoceCaras();
-        cout << dadoOponente2 << endl; 
+        cout << dadoOponente2 << endl;
         cout << "Se sumará los dados para saber el numero objetivo..." << endl;
         rlutil::msleep(2000);
-        int numeroObjetivoOponente = dadoOponente1 + dadoOponente2; 
+        int numeroObjetivoOponente = dadoOponente1 + dadoOponente2;
         cout << "El numero objetivo es: " << numeroObjetivoOponente << " del jugador " << jugadorOponente << endl;
         rlutil::msleep(2000);
         cout << "Ahora " << jugadorOponente << " tira el dado de 6 caras..." << endl;
         rlutil::msleep(2000);
         for (int i = 0; i < cantDadosOponente; i++) {
-            dadosOponente[i] = (rand() % 6) + 1; 
+            dadosOponente[i] = (rand() % 6) + 1;
         }
         cout << "Dados obtenidos: ";
         for (int i = 0; i < cantDadosOponente; i++) {
-            cout << dadosOponente[i] << " "; 
+            cout << dadosOponente[i] << " ";
         }
         cout << " " << endl;
         rlutil::anykey();
@@ -216,61 +216,61 @@ for (int i = 0; i < cantASumar; i++) {
 do {
             cout << "¿Cuántos dados querés sumar? (no podés elegir 1 solo): " << endl;
 
-            cin >> cantASumarOponente; 
+            cin >> cantASumarOponente;
 
             if (cin.fail()) {
                 cout << "Entrada inválida. Debe ser un número entre 2 y " << cantDadosOponente << ". " << endl;;
-                cin.clear(); 
-                cin.ignore(10000, '\n'); 
+                cin.clear();
+                cin.ignore(10000, '\n');
             }
-            
+
         } while (cantASumarOponente < 2 or cantASumarOponente > cantDadosOponente);
-        
-        int indicesOponente[cantASumarOponente]; 
-        bool usadoOponente[cantDadosOponente] = {false}; 
-        
-        int dadosElegidosOponente[cantASumarOponente]; 
+
+        int indicesOponente[cantASumarOponente];
+        bool usadoOponente[cantDadosOponente] = {false};
+
+        int dadosElegidosOponente[cantASumarOponente];
         for (int i = 0; i < cantASumarOponente; i++) {
-            int indOponente; 
+            int indOponente;
             do {
                 cout << "Ingresá el número del dado #" << (i + 1) << " que querés usar (del 1 a " << cantDadosOponente << "): ";
                 cin >> indOponente;
-                indOponente--;  
+                indOponente--;
                 if (cin.fail()) {
                     cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
-                    cin.clear(); 
-                    cin.ignore(10000, '\n'); 
-                    continue; 
+                    cin.clear();
+                    cin.ignore(10000, '\n');
+                    continue;
                 }
                 if (indOponente < 0 or indOponente >= cantDadosOponente) {
                     cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
-                } else if (usadoOponente[indOponente]) {    
+                } else if (usadoOponente[indOponente]) {
                     cout << "Ese dado ya fue usado. ";
                 }
 
             } while (indOponente < 0 or indOponente >= cantDadosOponente or usadoOponente[indOponente]);
 
-            indicesOponente[i] = indOponente; 
-            usadoOponente[indOponente] = true;  
+            indicesOponente[i] = indOponente;
+            usadoOponente[indOponente] = true;
 
             dadosElegidosOponente[i] = dadosOponente[indOponente];
-            
+
         }
-        int sumaSeleccionadaOponente = sumarVector(dadosElegidosOponente, cantASumarOponente); 
+        int sumaSeleccionadaOponente = sumarVector(dadosElegidosOponente, cantASumarOponente);
         if (sumaSeleccionadaOponente == numeroObjetivoOponente) {
             cout << "Combinación elegida: ";
             mostrarVector(dadosElegidosOponente, cantASumarOponente);
             rlutil::msleep(2000);
             cout << " Es correcta" << endl;
-            puntosOponente += sumaSeleccionadaOponente * cantASumarOponente; 
-            
+            puntosOponente += sumaSeleccionadaOponente * cantASumarOponente;
+
             for (int i = 0; i < cantASumarOponente; i++)
             {
-                dadosInicial[cantDadosInicial] = dadosElegidosOponente[i]; 
+                dadosInicial[cantDadosInicial] = dadosElegidosOponente[i];
                 cantDadosInicial++;
             }
 
-            cantDadosOponente -= cantASumarOponente; 
+            cantDadosOponente -= cantASumarOponente;
 
             if (cantDadosOponente <= 0)
             {
@@ -278,8 +278,8 @@ do {
                 return;
             }
 
-            
-            
+
+
         }
         else {
             cout << "Combinación elegida: ";
@@ -292,8 +292,8 @@ do {
             if (cantDadosInicial > 1)
             {
                 dadosOponente[cantDadosOponente] = dadosInicial[cantDadosInicial - 1];
-                cantDadosOponente++; 
-                cantDadosInicial--; 
+                cantDadosOponente++;
+                cantDadosInicial--;
                 cout << jugadorOponente << " recibió un dado de su oponente." << endl;
             }
             else
@@ -301,7 +301,7 @@ do {
                 cout << "El jugador inicial no tiene dados suficientes para entregar." << endl;
             }
 
-           
+
 
 
         // Acá se repite todo lo anterior, pero para el jugador oponente
@@ -315,9 +315,9 @@ do {
 
 
         cout << "Fin de la ronda " << ronda << endl;
-        
+
     }
-    
+
 }
 cout << "Fin del juego. ¡Gracias por jugar!" << endl;
 
@@ -408,13 +408,43 @@ int menuOpciones()
     do
     {
         rlutil::cls();
-        cout << "\n--- MENU DE OPCIONES ---\n";
-        cout << "1. Jugar\n";
-        cout << "2. Estadistica\n";
-        cout << "3. Creditos\n";
-        cout << "4. Reglamento\n";
-        cout << "0. Salirl\n";
-        cout << "Ingrese una opcion: ";
+          rlutil::setColor(rlutil::LIGHTRED);
+    cout << "\n====================== MENU DE OPCIONES ======================\n\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "  1. ";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Jugar\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "  2. ";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Estadística\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "  3. ";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Créditos\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "  4. ";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Reglamento\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "  0. ";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Salir\n";
+
+    rlutil::setColor(rlutil::LIGHTCYAN);
+    cout << "\nSeleccione una opción: ";
+
+    rlutil::setColor(rlutil::WHITE);
         cin >> opciones;
 
         if (cin.fail())
@@ -440,63 +470,122 @@ int menuOpciones()
     return opciones;
 }
 
-void reglamento()
-{ // Funcion que muestra el reglamento del juego.
-    std::cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
-    std::cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
-    std::cout << "con las matem�ticas. El objetivo es sumar la mayor cantidad de puntos\n";
-    std::cout << "en un total de tres rondas.\n\n";
+void reglamento(){
+    rlutil::cls();
 
-    std::cout << "-----------------------------------------------------------------------\n";
-    std::cout << "REGLAS GENERALES:\n";
-    std::cout << "- Cada jugador tiene seis dados de seis caras (dados stock).\n";
-    std::cout << "- Adicionalmente, hay dos dados de doce caras que se usan entre rondas.\n";
-    std::cout << "- Al comenzar el juego, cada jugador lanza un dado de 6 caras.\n";
-    std::cout << "  Quien saque el valor m�s alto comienza la partida.\n";
-    std::cout << "  En caso de empate, se repite la tirada.\n";
+    rlutil::setColor(rlutil::LIGHTRED);
+    cout << "\n=================  REGLAMENTO DEL JUEGO: ENFRENDADOS  =================\n";
 
-    std::cout << "\nDIN�MICA DE CADA RONDA:\n";
-    std::cout << "- El jugador que inicia lanza los dos dados de 12 caras.\n";
-    std::cout << "- Luego lanza los dados stock (dados de 6 caras que tenga en su poder).\n";
-    std::cout << "- Los dados que tiene cada jugador se denominan \"dados stock\" y pueden\n";
-    std::cout << "  variar de una ronda a otra.\n";
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
+    cout << "con las matemáticas. El objetivo es sumar la mayor cantidad de puntos\n";
+    cout << "en un total de tres rondas.\n\n";
 
-    std::cout << "\nPUNTAJE:\n";
-    std::cout << "- Despu�s de ambos lanzamientos, se determina el puntaje basado en\n";
-    std::cout << "  condiciones que combinan el azar y el uso de operaciones matem�ticas.\n";
+    rlutil::setColor(rlutil::LIGHTBLUE);
+    cout << "-----------------------------------------------------------------------\n";
 
-    std::cout << "\nIMPORTANTE:\n";
-    std::cout << "- El juego finaliza despu�s de 3 rondas y gana quien tenga m�s puntos.\n";
-    std::cout << "- Las reglas completas de puntuaci�n se explican durante el juego.\n";
-    std::cout << "=======================================================================\n\n";
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "REGLAS GENERALES:\n";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "- Cada jugador tiene seis dados de seis caras (dados stock).\n";
+    cout << "- Adicionalmente, hay dos dados de doce caras que se usan entre rondas.\n";
+    cout << "- Al comenzar el juego, cada jugador lanza un dado de 6 caras.\n";
+    cout << "  Quien saque el valor más alto comienza la partida.\n";
+    cout << "  En caso de empate, se repite la tirada.\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "\nDINÁMICA DE CADA RONDA:\n";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "- El jugador que inicia lanza los dos dados de 12 caras.\n";
+    cout << "- Luego lanza los dados stock (dados de 6 caras que tenga en su poder).\n";
+    cout << "- Los dados que tiene cada jugador se denominan \"dados stock\" y pueden\n";
+    cout << "  variar de una ronda a otra.\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "\nPUNTAJE:\n";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "- Después de ambos lanzamientos, se determina el puntaje basado en\n";
+    cout << "  condiciones que combinan el azar y el uso de operaciones matemáticas.\n";
+
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "\nIMPORTANTE:\n";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "- El juego finaliza después de 3 rondas y gana quien tenga más puntos.\n";
+    cout << "- Las reglas completas de puntuación se explican durante el juego.\n";
+
+    rlutil::setColor(rlutil::LIGHTRED);
+    cout << "=======================================================================\n\n";
+
+    rlutil::setColor(rlutil::LIGHTCYAN);
+    cout << "Presione una tecla para volver al menú..." << endl;
+
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::anykey();
+    rlutil::cls();
 }
 
 void creditos()
 { // Funcion que muestra los creditos del juego.
     // Guardo los nombres, apellidos y numero de legajo de los participantes.
-    cout << " CREDITOS DEL JUEGO " << endl;
-    cout << endl;
+    rlutil::setColor(rlutil::LIGHTMAGENTA);
+    cout << "===================== CREDITOS DEL JUEGO =====================\n\n";
 
-    cout << " Nombre del grupo: Grupo 2 " << endl;
-    cout << endl;
+    // Nombre del grupo
+    rlutil::setColor(rlutil::YELLOW);
+    cout << "Nombre del grupo: ";
 
-    cout << " Nombres, apellidos y legajos de los participantes " << endl;
-    cout << endl;
+    rlutil::setColor(rlutil::WHITE);
+    cout << "Grupo 2\n\n";
 
-    cout << " Miguel Guimar Salazar: 32530 " << endl;
-    cout << " Ramiro Joel Kriguer: 33446 " << endl;
-    cout << " Fernando Gabriel Quiroga: 33404 " << endl;
-    cout << " Federico Wachenschwan: 22561 " << endl;
+    // Participantes
+    rlutil::setColor(rlutil::LIGHTCYAN);
+    cout << "Nombres, apellidos y legajos de los participantes\n\n";
 
-    cout << " MENCION ESPECIALES Para: " << endl;
-    cout << endl;
+    rlutil::setColor(rlutil::WHITE);
+    cout << "  - Miguel Guimar Salazar: 32530\n";
+    cout << "  - Ramiro Joel Kriguer: 33446\n";
+    cout << "  - Fernando Gabriel Quiroga: 33404\n";
+    cout << "  - Federico Wachenschwan: 22561\n\n";
 
-    cout << " Íconos obtenidos de Freepik y logo hecho en Logo Maker. " << endl;
-    cout << " Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia. " << endl;
-    cout << " Anexo " << endl;
+    // Menciones especiales
+    rlutil::setColor(rlutil::LIGHTGREEN);
+    cout << "MENCIONES ESPECIALES para:\n\n";
+
+    rlutil::setColor(rlutil::WHITE);
+    cout << "  - Íconos obtenidos de Freepik y logo hecho en Logo Maker.\n";
+    cout << "  - Juego inventado por Angel Simón. Levemente inspirado en el juego Mafia.\n\n";
+
+    rlutil::setColor(rlutil::LIGHTBLUE);
+    cout << "=========================== ANEXO ============================\n";
+
+    rlutil::anykey();  // Espera que el usuario presione una tecla
 }
 
 
+void mostrarPantallaInicio() {
+    rlutil::cls();
 
+    rlutil::setColor(rlutil::LIGHTRED);
+    rlutil::locate(8, 4);
+    cout << "===========================================" << endl;
 
+    rlutil::locate(10, 5);
+    cout << "  Enfredados, el Juego de Dados en C++  " << endl;
+
+    rlutil::locate(8, 6);
+    cout << "===========================================" << endl;
+
+    rlutil::setColor(rlutil::LIGHTCYAN);
+    rlutil::locate(10, 8);
+    cout << "Presione una tecla para ir al menu y comenzar el juego";
+
+    rlutil::setColor(rlutil::WHITE);
+
+    rlutil::anykey();
+    rlutil::cls();
+}
 
