@@ -1,0 +1,13 @@
+#pragma once
+#include <string>
+
+
+void mostrarPantallaInicio();
+int decidirQuienEmpieza(std::string nombre1, std::string nombre2);
+int menuOpciones();
+void reglamento();
+void creditos();
+int dadoDoceCaras();
+void tirarDados();
+void jugarPartida(std::string jugadorInicial, std::string jugadorOponente, int dadosInicial[], int dadosOponente[], int& cantDadosInicial, int& cantDadosOponente, int& puntosInicial, int& puntosOponente);
+void estadisticasDelJuego(int jugadorInicial, int jugadorOponente, int puntosInicial, int ountosOponente, int cantDadosInicial, int cantDadosOponente);
