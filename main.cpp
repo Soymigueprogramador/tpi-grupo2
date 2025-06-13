@@ -1,15 +1,19 @@
 
+#include <io.h>
+#include <fcntl.h>
 #include <iostream>
 #include <cstring>
 #include <string>
 #include <cstdlib>
 #include <ctime>
 #include "funciones.h"
+#include <windows.h>
 #include "rlutil.h"
 #include <vector>
 #include "vectores.h"
 #include "funciones.cpp"
 using namespace std;
+
 
 
 // Funcion para mostrar el menu.
@@ -21,9 +25,12 @@ int dadoDoceCaras();
 
 int main()
 {
+
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
+    SetConsoleOutputCP(65001); //Muestra todo en UTF-8, así se ven bien los tildes, la ñ y los caracteres especiales 
     mostrarPantallaInicio();
+
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
