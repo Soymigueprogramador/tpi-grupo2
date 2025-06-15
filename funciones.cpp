@@ -469,7 +469,45 @@ int menuOpciones()
         rlutil::setColor(rlutil::LIGHTCYAN);
         cout << "\nSeleccione una opción: ";
 
-        rlutil::setColor(rlutil::WHITE);
+    // rlutil::setColor(rlutil::WHITE);
+
+ // Paredes verticales, las imprimimos en una sola línea para evitar pisar
+    rlutil::cls();
+    rlutil::setColor(rlutil::LIGHTGREEN);
+    ///PAREDES VERTICALES DEL MENU
+        for (int j = 2; j <= 20; j++) { // for (va de LA PRIMERA LINEA (6 en este caso) hasta (LA 20 EN ESTE CASO) ejecutando una linea de pared (|)
+        rlutil::locate(15, j); cout << "|"; // Recuadro del cartel (x, y) x = columnas / y = filas
+        rlutil::locate(103, j); cout << "|";
+    }
+
+    rlutil::locate(15,1); cout << "=========================================================================================";
+    rlutil::locate(25, 2); cout << "                          __  __ ______ _   _ _    _";
+    rlutil::locate(25, 3); cout << "                         |  \\/  |  ____| \\ | | |  | |";
+    rlutil::locate(25, 4); cout << "                         | \\  / | |__  |  \\| | |  | |";
+    rlutil::locate(25, 5); cout << "                         | |\\/| |  __| | . ` | |  | |";
+    rlutil::locate(25, 6); cout << "                         | |  | | |____| |\\  | |__| |";
+    rlutil::locate(25, 7); cout << "                         |_|  |_|______|_| \\_|\\____/";
+    rlutil::locate(16, 9); cout << "=======================================================================================";
+    rlutil::locate(25, 11); cout << "                           1. Jugar";
+    rlutil::locate(25, 13); cout << "                           2. Estadistica";
+    rlutil::locate(25, 15); cout << "                           3. Creditos";
+    rlutil::locate(25, 17); cout << "                           4. Reglamento";
+    rlutil::locate(25, 19); cout << "                           0. Salir";
+    rlutil::locate(15, 21); cout << "=========================================================================================";
+
+
+    rlutil::locate(26, 26); cout << "                    Seleccione una opcion: " << endl << endl << endl << endl;
+
+    for (int t = 25; t <= 27; t++) { // for (va de LA PRIMERA LINEA (6 en este caso) hasta (LA 20 EN ESTE CASO) ejecutando una linea de pared (|)
+        rlutil::locate(43, t); cout << "|"; // Recuadro del cartel (x, y) x = columnas / y = filas
+        rlutil::locate(74, t); cout << "|";
+    }
+
+    rlutil::locate(43,24); cout << "================================";
+    rlutil::locate(43,28); cout << "================================";
+    rlutil::locate(69, 26);
+
+    
         cin >> opciones;
 
         if (cin.fail())
