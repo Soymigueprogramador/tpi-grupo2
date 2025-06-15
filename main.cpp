@@ -12,6 +12,7 @@
 using namespace std;
 
 
+
 // Funcion para mostrar el menu.
 int menuOpciones();
 
@@ -23,7 +24,11 @@ int main()
 {
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
-    mostrarPantallaInicio();
+    
+    // mostrarPantallaInicio();
+
+    
+    mostrarPortada();
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;

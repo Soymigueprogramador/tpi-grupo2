@@ -443,44 +443,74 @@ int menuOpciones()
 
     do
     {
-        rlutil::cls();
-          rlutil::setColor(rlutil::LIGHTRED);
-    cout << "\n====================== MENU DE OPCIONES ======================\n\n";
+    //    rlutil::cls();
+    //       rlutil::setColor(rlutil::LIGHTRED);
+    // cout << "\n====================== MENU DE OPCIONES ======================\n\n";
 
-    rlutil::setColor(rlutil::YELLOW);
-    cout << "  1. ";
+    // rlutil::setColor(rlutil::YELLOW);
+    // cout << "  1. ";
 
-    rlutil::setColor(rlutil::WHITE);
-    cout << "Jugar\n";
+    // rlutil::setColor(rlutil::WHITE);
+    // cout << "Jugar\n";
 
-    rlutil::setColor(rlutil::YELLOW);
-    cout << "  2. ";
+    // rlutil::setColor(rlutil::YELLOW);
+    // cout << "  2. ";
 
-    rlutil::setColor(rlutil::WHITE);
-    cout << "Estadística\n";
+    // rlutil::setColor(rlutil::WHITE);
+    // cout << "Estadística\n";
 
-    rlutil::setColor(rlutil::YELLOW);
-    cout << "  3. ";
+    // rlutil::setColor(rlutil::YELLOW);
+    // cout << "  3. ";
 
-    rlutil::setColor(rlutil::WHITE);
-    cout << "Créditos\n";
+    // rlutil::setColor(rlutil::WHITE);
+    // cout << "Créditos\n";
 
-    rlutil::setColor(rlutil::YELLOW);
-    cout << "  4. ";
+    // rlutil::setColor(rlutil::YELLOW);
+    // cout << "  4. ";
 
-    rlutil::setColor(rlutil::WHITE);
-    cout << "Reglamento\n";
+    // rlutil::setColor(rlutil::WHITE);
+    // cout << "Reglamento\n";
 
-    rlutil::setColor(rlutil::YELLOW);
-    cout << "  0. ";
+    // rlutil::setColor(rlutil::YELLOW);
+    // cout << "  0. ";
 
-    rlutil::setColor(rlutil::WHITE);
-    cout << "Salir\n";
+    // rlutil::setColor(rlutil::WHITE);
+    // cout << "Salir\n";
 
-    rlutil::setColor(rlutil::LIGHTCYAN);
-    cout << "\nSeleccione una opción: ";
+    // rlutil::setColor(rlutil::LIGHTCYAN);
+    // cout << "\nSeleccione una opción: ";
 
-    rlutil::setColor(rlutil::WHITE);
+    // rlutil::setColor(rlutil::WHITE);
+
+  // Paredes verticales, las imprimimos en una sola línea para evitar pisar
+    rlutil::cls(); 
+    for (int j = 6; j <= 20; j++) { // for (va de LA PRIMERA LINEA (6 en este caso) hasta (LA 20 EN ESTE CASO) ejecutando una linea de pared (|)
+            rlutil::locate(15, j); cout << "|"; // Recuadro del cartel (x, y) x = columnas / y = filas
+            rlutil::locate(103, j); cout << "|";
+        }
+        rlutil::locate(15,5); cout << "=========================================================================================";
+        rlutil::locate(25, 7); cout << "                         MENU DE OPCIONES";
+        rlutil::locate(16, 9); cout << "=======================================================================================";
+        rlutil::locate(25, 11); cout << "                           1. Jugar";
+        rlutil::locate(25, 13); cout << "                           2. Estadistica";
+        rlutil::locate(25, 15); cout << "                           3. Creditos";
+        rlutil::locate(25, 17); cout << "                           4. Reglamento";
+        rlutil::locate(25, 19); cout << "                           0. Salir";
+        rlutil::locate(15, 21); cout << "=========================================================================================";
+
+
+        rlutil::locate(26, 26); cout << "                    Seleccione una opcion: " << endl << endl << endl << endl;
+
+        for (int t = 25; t <= 27; t++) { // for (va de LA PRIMERA LINEA (6 en este caso) hasta (LA 20 EN ESTE CASO) ejecutando una linea de pared (|)
+            rlutil::locate(43, t); cout << "|"; // Recuadro del cartel (x, y) x = columnas / y = filas
+            rlutil::locate(74, t); cout << "|";
+        }
+
+        rlutil::locate(43,24); cout << "================================";
+        rlutil::locate(43,28); cout << "================================";
+        rlutil::locate(69, 26); // Deja el cursor en esa parte de la pantalla, esperando a que se elija una opción
+
+    
         cin >> opciones;
 
         if (cin.fail())
@@ -502,7 +532,7 @@ int menuOpciones()
             rlutil::cls(); // Lo mismo que arriba
         }
     } while (!opcionValida);
-
+    rlutil::cls();
     return opciones;
 }
 
@@ -599,29 +629,82 @@ void creditos()
     cout << "=========================== ANEXO ============================\n";
 
     rlutil::anykey();  // Espera que el usuario presione una tecla
+    
 }
 
 
-void mostrarPantallaInicio() {
-    rlutil::cls();
+// void mostrarPantallaInicio() {
+//     rlutil::cls();
 
-    rlutil::setColor(rlutil::LIGHTRED);
-    rlutil::locate(8, 4);
-    cout << "===========================================" << endl;
+//     rlutil::setColor(rlutil::LIGHTRED);
+//     rlutil::locate(8, 4);
+//     cout << "===========================================" << endl;
 
-    rlutil::locate(10, 5);
-    cout << "  Enfredados, el Juego de Dados en C++  " << endl;
+//     rlutil::locate(10, 5);
+//     cout << "  Enfredados, el Juego de Dados en C++  " << endl;
 
-    rlutil::locate(8, 6);
-    cout << "===========================================" << endl;
+//     rlutil::locate(8, 6);
+//     cout << "===========================================" << endl;
 
-    rlutil::setColor(rlutil::LIGHTCYAN);
-    rlutil::locate(10, 8);
-    cout << "Presione una tecla para ir al menu y comenzar el juego";
+//     rlutil::setColor(rlutil::LIGHTCYAN);
+//     rlutil::locate(10, 8);
+//     cout << "Presione una tecla para ir al menu y comenzar el juego";
 
-    rlutil::setColor(rlutil::WHITE);
+//     rlutil::setColor(rlutil::WHITE);
 
-    rlutil::anykey();
-    rlutil::cls();
+//     rlutil::anykey();
+//     rlutil::cls();
+// }
+
+void mostrarPortada(){
+    while (true)
+    {   rlutil::cls();
+        for (int i=1; i<20; i++){
+
+            if (i % 2 == 0){ //Dependiendo de si el numero del recorrido de la i del for es par o impar, alterna entre un color y fondo de letra y otro
+                rlutil::setColor(rlutil::RED);//Hace que a partir del comando para abajo las letras se pongan de cierto color
+                rlutil::setBackgroundColor(rlutil::WHITE); //Pone el color de fondo de las letras de cierto color
+            } else {
+                rlutil::setColor(rlutil::WHITE);//Hace que a partir del comando para abajo las letras se pongan de cierto color
+                rlutil::setBackgroundColor(rlutil::LIGHTGREEN); //Pone el color de fondo de las letras de cierto color
+
+            }
+
+            rlutil::hidecursor(); //Hace que no titile el cursor (no aparece en la terminal)
+
+            // Recuadro del cartel (x, y) x = columnas / y = filas
+             rlutil::locate(15, 6); cout << "=========================================================================================";
+
+            // Paredes verticales, las imprimimos en una sola línea para evitar pisar
+            for (int j = 7; j <= 20; j++) {
+                rlutil::locate(15, j); cout << "|";
+                rlutil::locate(103, j); cout << "|";
+
+            }
+            rlutil::locate(15, 20); cout << "=========================================================================================";
+
+            // Texto dentro del recuadro
+            rlutil::locate(25, 11); cout << " _______   ____________  _______   ______  ___     ____  ____  _____ ";
+            rlutil::locate(25, 12); cout << "/ ____/ | / / ____/ __ \\/ ____/ | / / __ \\/   |   / __ \\/ __ \\/ ___/ ";
+            rlutil::locate(25, 13); cout << "/ __/ /  |/ / /_  / /_/ / __/ /  |/ / / / / /| |  / / / / / / /\\__ \\ ";
+            rlutil::locate(25, 14); cout << "/ /___/ /|  / __/ / _, _/ /___/ /|  / /_/ / ___ | / /_/ / /_/ /___/ /";
+            rlutil::locate(25, 15); cout << "/_____/_/ |_/_/   /_/ |_/_____/_/ |_/_____/_/  |_/_____/\\____//____/ ";
+
+            rlutil::locate(40, 25); cout << " Presione una tecla para continuar";
+
+            rlutil::msleep(700); //Detiene la ejecucion del programa un determinado tiempo
+
+            
+            if (kbhit()) { //Si se presionó una tecla, salir del bucle. kbhit -> Determina si se ha pulsado el teclado
+                getch(); // Consume la tecla
+                system("color 07"); // Deja la terminal y el texto en el color por defecto
+                rlutil::cls(); //Limpia la pantalla
+                return;
+            }
+
+        }
+    }
+
+    
 }
 
