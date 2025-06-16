@@ -29,7 +29,7 @@ int main()
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
     SetConsoleOutputCP(65001); //Muestra todo en UTF-8, así se ven bien los tildes, la ñ y los caracteres especiales 
-    mostrarPantallaInicio();
+    mostrarPortada();
 
 
     string nombreJugador1, nombreJugador2;

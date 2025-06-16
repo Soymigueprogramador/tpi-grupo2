@@ -2,7 +2,7 @@
 #include <string>
 
 
-void mostrarPantallaInicio();
+void mostrarPortada();
 int decidirQuienEmpieza(std::string nombre1, std::string nombre2);
 int menuOpciones();
 void reglamento();
