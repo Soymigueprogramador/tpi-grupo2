@@ -9,6 +9,7 @@
 #include <vector>
 #include "vectores.h"
 #include "funciones.cpp"
+#include <windows.h>
 using namespace std;
 
 
@@ -23,11 +24,12 @@ int main()
 {
     srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
     //Declaro estructura para jugadores
-    mostrarPantallaInicio();
+    SetConsoleOutputCP(65001); //Muestra todo en UTF-8, así se ven bien los tildes, la ñ y los caracteres especiales
+    mostrarPortada();
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
-    const int TAM = 250; // La cantidad de dados de todos los jugadores, que es 250, pero no se usa todo normalmente por eso el numero grande
+    int TAM = 250; // La cantidad de dados de todos los jugadores, que es 250, pero no se usa todo normalmente por eso el numero grande
     int dadosStockJ1[TAM] = {};
     int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
     int cantDadosJ1 = 6; // Cantidad de dados que tiene cada jugador (se empieza con 6, pero va cambiando)
@@ -43,6 +45,8 @@ int main()
         2- Se usa un switch como condicional para que se ejecute la opcion ingresada por el usuario.
         3- A medida de que el juego sea desarrollado se debera ir modificando el menu de iociones.
     */
+   string nombreMejorJugadorHistorico = "Nadie";
+    int maxPuntajeHistorico = 0;
     while (!finalizar)
     {
         rlutil::cls();
@@ -84,6 +88,18 @@ int main()
 
                 }
                 rlutil::msleep(2000);
+                if (puntajeJugador1 > maxPuntajeHistorico) {
+                maxPuntajeHistorico = puntajeJugador1;
+                nombreMejorJugadorHistorico = nombreJugador1;
+                }
+                if (puntajeJugador2 > maxPuntajeHistorico) { // Usamos 'if' y no 'else if' para contemplar que el jugador 2 pueda superar al jugador 1 si es que el jugador 1 no supero el puntaje historico antes.
+                maxPuntajeHistorico = puntajeJugador2;
+                nombreMejorJugadorHistorico = nombreJugador2;
+                }
+
+                cout << "RECORD HISTÓRICO EN LA SESIÓN: " << nombreMejorJugadorHistorico << " con " << maxPuntajeHistorico << " puntos." << endl;
+                rlutil::anykey();
+                break;
                 rlutil::cls();
 
                 // Acá podemos hacer que se muestra todo el puntaje final y eso
@@ -105,10 +121,11 @@ int main()
                 break;
 
         case 2:
-            cout << " Se mostraran las estadisticas del juego " << endl;
-            rlutil::anykey();  // Espera a que el usuario lea el contenido
-            rlutil::cls();     // Recién ahora limpia
-            break;
+            // Ahora pasas también las variables del récord histórico
+                estadisticasDelJuego(nombreJugador1, nombreJugador2, puntajeJugador1, puntajeJugador2, cantDadosJ1, cantDadosJ2, nombreMejorJugadorHistorico, maxPuntajeHistorico);
+                rlutil::anykey();
+                rlutil::cls();
+                break;
 
         case 3:
             creditos();
