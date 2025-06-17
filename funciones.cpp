@@ -75,7 +75,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
             {
                 cout << dadosInicial[i] << " "; // Muestra los dados disponibles
             }
-            
+
             int ind; // ind, de índice, es la variable que se usa para elegir el dado. Es como un selector
             cout << "   " << endl;
             cout << "Ingresá el número del dado #" << (cantDadosElegidos + 1) << " que querés usar (del 1 a " << cantDadosInicial << "): " << endl;
@@ -83,13 +83,13 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
             cin >> ind;
              if (ind == 0) {
                 pasoDeTurno = true; // Si el usuario ingresa 0, pasa al turno del oponente
-                break; 
-              
+                break;
+
                 } // Si se ingresa otra cosa, como una letra, se vuelve a pedir el dado a elegir
                 if (cin.fail()) {
                 cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
                 cin.clear();
-                cin.ignore(10000, '\n'); 
+                cin.ignore(10000, '\n');
                   rlutil::msleep(1000);
                 rlutil::cls();
                 continue; }
@@ -102,8 +102,8 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
                 continue ; // Continue va hacia el final del while, y vuelve a pedir el dado a elegir
             }
 
-            
-            
+
+
             if (ind < 0 or ind >= cantDadosInicial) {
                 cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosInicial << ". " << endl;
                   rlutil::msleep(1000);
@@ -142,7 +142,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
         } else {
             cout << "El oponente no tiene dados suficientes para entregar." << endl;
         } // Pasa al siguiente turno. Si no se pasaTurno, se sigue con el código de abajo
-    } else 
+    } else
         if (sumaSeleccionada == numeroObjetivo) { // Verifica si es igual al numeroObjetivo para saber si es tirada correcta o no
             cout << "Combinación elegida: ";
             mostrarVector(dadosElegidos, cantDadosElegidos);
@@ -167,14 +167,14 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
                 puntosInicial += 10000; // Los suma al puntaje final
                 rlutil::anykey();
                 rlutil::cls();
-                
-                
+
+
                 return; // Vuelve al main, y verifica la victoria, que será verdadera
             }
 
-      
 
-        }         // Abajo, si la combinación es tirada fallida                           
+
+        }         // Abajo, si la combinación es tirada fallida
         else {
             cout << "Combinación elegida: ";
             mostrarVector(dadosElegidos, cantDadosElegidos);
@@ -191,7 +191,7 @@ void jugarPartida(string jugadorInicial, string jugadorOponente, int dadosInicia
             {
                 cout << "El oponente no tiene dados suficientes para entregar." << endl;
             }
-            
+
 
 
             // A continuacion, todo lo anterior pero para el oponente. Es solo cambios de variables, pero misma logica y estructura
@@ -243,7 +243,7 @@ while (sumaParcialOponente < numeroObjetivoOponente)
     {
         cout << dadosOponente[i] << " ";
     }
-    
+
     int indOponente;
     cout << "   " << endl;
     cout << "Ingresá el número del dado #" << (cantDadosElegidosOponente + 1) << " que querés usar (del 1 a " << cantDadosOponente << "): " << endl;
@@ -251,7 +251,7 @@ while (sumaParcialOponente < numeroObjetivoOponente)
     cin >> indOponente;
      if (indOponente == 0) {
         pasoDeTurnoOponente = true;
-        break; 
+        break;
         }
         if (cin.fail()) {
         cout << "Entrada inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
@@ -268,7 +268,7 @@ while (sumaParcialOponente < numeroObjetivoOponente)
         rlutil::cls();
         continue ;
     }
-    
+
     if (indOponente < 0 or indOponente >= cantDadosOponente) {
         cout << "Posición inválida. Debe ser un número entre 1 y " << cantDadosOponente << ". " << endl;
             rlutil::msleep(1000);
@@ -342,7 +342,7 @@ else {
     }
     if (pasoDeTurnoOponente == true) {
         cout << "El jugador " << jugadorOponente << " ha pasado su turno." << endl;
-        
+
     }
 }
 rlutil::anykey();
@@ -353,26 +353,41 @@ rlutil::anykey();
 
 
 // Funcion que crea y muestra las estadisticas del juego.
-void estadisticasDelJuego(string jugador1, string jugador2, int puntos1, int puntos2, int dados1, int dados2, string nombreMejorHistorico, int puntosMejorHistorico) {
 
-    // Información de la última partida (que ya tienes)
-    cout << "================ ESTADÍSTICAS DE LA ÚLTIMA PARTIDA ================" << endl;
-    cout << "Jugador: " << jugador1 << " | Puntos: " << puntos1 << " | Dados restantes: " << dados1 << endl;
-    cout << "Jugador: " << jugador2 << " | Puntos: " << puntos2 << " | Dados restantes: " << dados2 << endl;
-    cout << "-------------------------------------------------------------------" << endl;
+void estadisticasDelJuego(string jugador1, string jugador2, int puntos1, int puntos2, int dados1, int dados2, string nombreMejorHistorico, int puntosMejorHistorico, bool huboPartidaJugada) {
 
-    if (puntos1 > puntos2) {
-        cout << "¡El ganador de la ÚLTIMA PARTIDA es: " << jugador1 << "!" << endl;
-    } else if (puntos2 > puntos1) {
-        cout << "¡El ganador de la ÚLTIMA PARTIDA es: " << jugador2 << "!" << endl;
+    if (huboPartidaJugada == false) {
+        rlutil::setColor(rlutil::YELLOW);
+        cout << "==========================================================" << endl;
+        cout << "               NO SE HA JUGADO NINGUNA PARTIDA.       " << endl;
+        cout << "       ¡JUEGA UNA PARTIDA PARA VER LAS ESTADÍSTICAS!      " << endl;
+        cout << "==========================================================" << endl;
+        rlutil::setColor(rlutil::WHITE); // Restaurar color por defecto
     } else {
-        cout << "¡La ÚLTIMA PARTIDA TERMINÓ EN EMPATE!" << endl;
-    }
-    cout << "-------------------------------------------------------------------" << endl;
 
-    // AQUI AGREGAS LA PARTE DEL RECORD HISTÓRICO DE LA SESIÓN
+        cout << "================ ESTADÍSTICAS DE LA ÚLTIMA PARTIDA ================" << endl;
+
+        cout << "Jugador: " << jugador1 << " | Puntos: " << puntos1 << " | Dados restantes: " << dados1 << endl;
+        cout << "Jugador: " << jugador2 << " | Puntos: " << puntos2 << " | Dados restantes: " << dados2 << endl;
+
+        cout << "--------------------------------------------------------" << endl;
+
+        // Condicional para validar qué jugador ganó o si hay un empate
+        if ( puntos1 > puntos2 )
+        {
+            cout << "¡El ganador de la ÚLTIMA PARTIDA es: " << jugador1 << "!" << endl;
+        } else if ( puntos2 > puntos1 ) // Si los puntos del jugador 2 son mayores
+        {
+            cout << "¡El ganador de la ÚLTIMA PARTIDA es: " << jugador2 << "!" << endl;
+        } else { // Si los puntos son iguales
+            cout << "¡La ÚLTIMA PARTIDA TERMINÓ EN EMPATE!" << endl;
+        }
+        cout << "-------------------------------------------------------------------" << endl;
+    }
+
+    // AQUI SE AGREGA LA PARTE DEL RECORD HISTÓRICO DE LA SESIÓN (esto ya lo tenías, solo lo encapsulo)
     cout << "============= RÉCORD HISTÓRICO EN ESTA SESIÓN DE JUEGO =============" << endl;
-    if (puntosMejorHistorico > 0) { // Solo si ya se jugó al menos una partida
+    if (puntosMejorHistorico > 0) { // Solo si ya se jugó al menos una partida y hay un récord > 0
         cout << "MEJOR JUGADOR: " << nombreMejorHistorico << " con " << puntosMejorHistorico << " puntos." << endl;
     } else {
         cout << "Aún no se ha registrado ningún récord en esta sesión." << endl;
@@ -509,7 +524,7 @@ int menuOpciones()
         }
         else
         {   rlutil::setColor(rlutil::LIGHTRED);
-            rlutil::locate(75, 26); 
+            rlutil::locate(75, 26);
             cout << "        La opcion " << opciones << " no es valida." << endl;
             rlutil::locate(79, 27);
             cout << "      Intente nuevamente." << endl;
@@ -528,7 +543,7 @@ void reglamento(){
     cout << "\n=================   REGLAMENTO DEL JUEGO: ENFRENDADOS   =================\n";
 
     rlutil::setColor(rlutil::WHITE);
-    cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
+    cout << "Enfrendados ess un juego de dados para dos jugadores que combina el azar\n";
     cout << "con las matemáticas. El objetivo es sumar la mayor cantidad de puntos\n";
     cout << "en un total de tres rondas.\n\n";
 

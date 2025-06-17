@@ -6,7 +6,6 @@
 #include <ctime>
 #include "funciones.h"
 #include "rlutil.h"
-#include <vector>
 #include "vectores.h"
 #include "funciones.cpp"
 #include <windows.h>
@@ -34,6 +33,7 @@ int main()
     int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
     int cantDadosJ1 = 6; // Cantidad de dados que tiene cada jugador (se empieza con 6, pero va cambiando)
     int cantDadosJ2 = 6;
+    bool partidaJugada = false; // Para que no se muestre una estadistica nula
 
     // Lo de arriba parece ser lo mismo, pero dadosStock guarda QUÉ dados tiene, y cantDados guarda CUÁNTOS dados tiene cada jugador.
     int opcion;
@@ -68,6 +68,9 @@ int main()
                 cin >> nombreJugador1;
                 cout << "Ingrese nombre del jugador 2: ";
                 cin >> nombreJugador2;
+                if (partidaJugada == false) { // Solo la activamos una vez para indicar que al menos una partida se jugó
+                partidaJugada = true;
+                }
 
                         // Decidir quién empieza
                 int quienEmpieza;
@@ -120,31 +123,30 @@ int main()
                 rlutil::anykey();
                 break;
 
-        case 2:
-            // Ahora pasas también las variables del récord histórico
-                estadisticasDelJuego(nombreJugador1, nombreJugador2, puntajeJugador1, puntajeJugador2, cantDadosJ1, cantDadosJ2, nombreMejorJugadorHistorico, maxPuntajeHistorico);
-                rlutil::anykey();
-                rlutil::cls();
+                case 2:
+                estadisticasDelJuego(nombreJugador1, nombreJugador2, puntajeJugador1, puntajeJugador2, cantDadosJ1, cantDadosJ2, nombreMejorJugadorHistorico, maxPuntajeHistorico, partidaJugada);
+                rlutil::anykey(); 
+                rlutil::cls();     // Recién ahora limpia
                 break;
 
-        case 3:
-            creditos();
-            rlutil::anykey();
-            rlutil::cls();
-            break;
+                case 3:
+                    creditos();
+                    rlutil::anykey();
+                    rlutil::cls();
+                    break;
 
-        case 4:
-            reglamento();
-            rlutil::anykey();
-            rlutil::cls();
-            break;
+                case 4:
+                    reglamento();
+                    rlutil::anykey();
+                    rlutil::cls();
+                    break;
 
 
 
         }
     }
 
-    int decidirQuienEmpieza();
+    int decidirQuienEmpieza(); // s
 
 
     return 0;
