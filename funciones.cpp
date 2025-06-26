@@ -543,7 +543,7 @@ void reglamento(){
     cout << "\n=================   REGLAMENTO DEL JUEGO: ENFRENDADOS   =================\n";
 
     rlutil::setColor(rlutil::WHITE);
-    cout << "Enfrendados ess un juego de dados para dos jugadores que combina el azar\n";
+    cout << "Enfrendados es un juego de dados para dos jugadores que combina el azar\n";
     cout << "con las matemáticas. El objetivo es sumar la mayor cantidad de puntos\n";
     cout << "en un total de tres rondas.\n\n";
 

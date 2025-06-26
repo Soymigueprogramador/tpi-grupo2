@@ -64,10 +64,11 @@ int main()
 
             cout << " Comenzará el juego " << endl;
                         // Pedir nombres
+                cin.ignore(); // Limpia el buffer
                 cout << "Ingrese nombre del jugador 1: ";
-                cin >> nombreJugador1;
+                getline(cin, nombreJugador1);
                 cout << "Ingrese nombre del jugador 2: ";
-                cin >> nombreJugador2;
+                getline(cin, nombreJugador2);
                 if (partidaJugada == false) { // Solo la activamos una vez para indicar que al menos una partida se jugó
                 partidaJugada = true;
                 }
