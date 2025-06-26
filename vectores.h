@@ -1,140 +1,161 @@
+// Evita que el archivo se incluya más de una vez en la compilación.
 #ifndef VECTORES_H_INCLUDED
 #define VECTORES_H_INCLUDED
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+// Inclusión de bibliotecas necesarias.
+#include <iostream> // Para operaciones de entrada/salida como cout y cin.
+#include <cstdlib>  // Para funciones como rand y srand.
+#include <ctime>    // Para usar time como semilla de números aleatorios.
 
-/// DECLARACION/PROTOTIPO DE FUNCIONES
-void cargarVector(int v[], int tam);///asigna valores a cada una de las posiciones del vector
+/// DECLARACIÓN/PROTOTIPO DE FUNCIONES (solo firmas, sin implementación):
 
-void mostrarVector(int v[], int tam);/// muestra lo que contiene cada una de las posiciones del vector
+// Carga el vector con valores ingresados manualmente por el usuario.
+void cargarVector(int v[], int tam);
 
-void ponerCero(int v[], int tam);/// pone en 0 todas las posiciones del vector
+// Muestra en pantalla el contenido del vector.
+void mostrarVector(int v[], int tam);
 
-int posicionNumeroEnVector(int v[],int tam, int numero);/// devuelve la posici�n que ocupa un n�mero que se //env�a como par�metro. Devuelve la primera posici�n que encuentra el n�mero. Si no lo encuentra devuelve -1
-int contarNumerosRepetidos(int v[], int numero, int tam);///cuenta la cantidad de veces que se repite un //n�mero en el vector
+// Asigna 0 a todas las posiciones del vector.
+void ponerCero(int v[], int tam);
 
-int maximoVector(int v[], int tam);///devuelve  la posici�n (primera) que ocupa el m�ximo en el vector
+// Busca la posición del primer elemento igual a "numero" en el vector.
+// Si lo encuentra, retorna su posición; si no, retorna -1.
+int posicionNumeroEnVector(int v[], int tam, int numero);
 
-int minimoVector(int v[], int tam);///devuelve  la posici�n (primera) que ocupa el m�nimo en el vector
+// Cuenta cuántas veces se repite un número dentro del vector.
+int contarNumerosRepetidos(int v[], int numero, int tam);
+
+// Devuelve la posición del primer valor máximo encontrado en el vector.
+int maximoVector(int v[], int tam);
+
+// Devuelve la posición del primer valor mínimo encontrado en el vector.
+int minimoVector(int v[], int tam);
+
+// Carga el vector con números aleatorios en el rango [1, limite].
+void cargarAleatorio(int v[], int tam, int limite);
+
+// Ordena el vector de menor a mayor utilizando el método de selección.
+void ordenarVector(int v[], int tam);
+
+// Retorna la suma de todos los elementos del vector.
+int sumarVector(int v[], int tam);
+
+// Copia el contenido del vector v en el vector v2.
+void copiarVector(int v[], int v2[], int tam);
+
+// Compara dos vectores. Devuelve true si son idénticos, false si hay diferencias.
+bool compararVectores(int v[], int v2[], int tam);
 
 
-void cargarAleatorio(int v[], int tam, int limite);///asigna valores aleatorios a cada al vector
+/// DEFINICIONES DE LAS FUNCIONES:
 
-void ordenarVector(int v[], int tam );/// ordena de menor a mayor un vector
-
-int sumarVector(int v[], int tam ); /// suma los valores contenidos en el vector
-
-void copiarVector(int v[], int v2[],int tam ); ///copia el vector v en v2
-
-bool compararVectores(int v[], int v2[],int tam );// compara los dos vectores que recibe. Si son iguales ///devuelve true, si no devuelve false
-
-/// Desarrollo de funciones / Definiciones
-int posicionNumeroEnVector(int v[],int tam, int numero){
-    int i;
-    for(i=0;i<tam;i++){
-        if(v[i]==numero) return i;
-        }
-    return -1;
+// Busca la posición del primer número igual a 'numero' en el vector.
+int posicionNumeroEnVector(int v[], int tam, int numero) {
+    for (int i = 0; i < tam; i++) {
+        if (v[i] == numero) return i; // Si encuentra el número, devuelve la posición.
+    }
+    return -1; // Si no lo encuentra, devuelve -1.
 }
-int minimoVector(int v[], int tam){
-    int i, posMin=0;
-    for(i=1;i<tam;i++){
-        if(v[i]<v[posMin]) {
-                posMin=i;
+
+// Devuelve la posición del mínimo valor en el vector.
+int minimoVector(int v[], int tam) {
+    int posMin = 0;
+    for (int i = 1; i < tam; i++) {
+        if (v[i] < v[posMin]) {
+            posMin = i;
         }
     }
     return posMin;
 }
-void ordenarVector(int v[], int tam ){
-    int i,j, posmin, aux;
-    for(i=0;i<tam-1;i++){
-        posmin=i;
-        for(j=i+1;j<tam;j++){
-            if(v[j]<v[posmin]) posmin=j;
+
+// Ordena el vector de menor a mayor usando selección directa.
+void ordenarVector(int v[], int tam) {
+    int i, j, posmin, aux;
+    for (i = 0; i < tam - 1; i++) {
+        posmin = i; // Se asume que el mínimo está en la posición i.
+        for (j = i + 1; j < tam; j++) {
+            if (v[j] < v[posmin]) posmin = j; // Se busca un nuevo mínimo.
         }
-        aux=v[i];
-        v[i]=v[posmin];
-        v[posmin]=aux;
+        // Se intercambian los valores.
+        aux = v[i];
+        v[i] = v[posmin];
+        v[posmin] = aux;
     }
 }
 
-int maximoVector(int v[], int tam){
-    int i, posMax=0;
-    for(i=1;i<tam;i++){
-        if(v[i]>v[posMax]) {
-                posMax=i;
+// Devuelve la posición del valor máximo del vector.
+int maximoVector(int v[], int tam) {
+    int posMax = 0;
+    for (int i = 1; i < tam; i++) {
+        if (v[i] > v[posMax]) {
+            posMax = i;
         }
     }
     return posMax;
 }
 
-void cargarAleatorio(int v[], int tam, int limite){
-  int i;
-  srand(time(NULL));
-  for( i=0; i<tam; i++ ){
-        v[i]=(rand()%limite)+1;
-  }
-}
-
-void mostrarVector(int v[], int tam){
-    int i;
-    for(i=0;i<tam;i++){
-        std::cout<<v[i]<<"\t";
+// Llena el vector con valores aleatorios entre 1 y 'limite'.
+void cargarAleatorio(int v[], int tam, int limite) {
+    srand(time(NULL)); // Inicializa la semilla aleatoria con la hora actual.
+    for (int i = 0; i < tam; i++) {
+        v[i] = (rand() % limite) + 1; // Genera número entre 1 y 'limite'.
     }
 }
 
+// Muestra todos los elementos del vector separados por tabulación.
+void mostrarVector(int v[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        std::cout << v[i] << "\t";
+    }
+}
 
-int contarNumerosRepetidos(int v[], int numero, int tam){
-    int i, cant=0;
-    for(i=0;i<tam;i++){
-        if(v[i]==numero) cant++;
-        }
+// Cuenta cuántas veces aparece un número específico en el vector.
+int contarNumerosRepetidos(int v[], int numero, int tam) {
+    int cant = 0;
+    for (int i = 0; i < tam; i++) {
+        if (v[i] == numero) cant++; // Si el número coincide, incrementa el contador.
+    }
     return cant;
 }
 
-
-void ponerCero(int v[], int tam){
-    int i;
-    for(i=0;i<tam;i++){
-        v[i]=0;
+// Asigna el valor 0 a todas las posiciones del vector.
+void ponerCero(int v[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        v[i] = 0;
     }
 }
 
-
-int sumarVector(int v[], int tam ){
-    int i, suma=0;
-    for(i=0;i<tam;i++){
-        suma+=v[i];
+// Suma todos los valores almacenados en el vector.
+int sumarVector(int v[], int tam) {
+    int suma = 0;
+    for (int i = 0; i < tam; i++) {
+        suma += v[i];
     }
     return suma;
 }
 
-
-void copiarVector(int v[], int v2[],int tam ){
-    int i;
-    for(i=0;i<tam;i++){
-        v2[i]=v[i];
+// Copia el contenido de un vector en otro.
+void copiarVector(int v[], int v2[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        v2[i] = v[i];
     }
 }
 
-bool compararVectores(int v[], int v2[],int tam ){
-   int i;
-    for(i=0;i<tam;i++){
-        if(v2[i]!=v[i]) return false;
+// Compara si dos vectores tienen exactamente los mismos valores.
+bool compararVectores(int v[], int v2[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        if (v2[i] != v[i]) return false; // Si encuentra una diferencia, retorna false.
     }
-    return true;
+    return true; // Si no hay diferencias, retorna true.
 }
 
-void cargarVector(int v[], int tam){
-    int i;
-    for(i=0;i<tam;i++){
-        std::cout<<"INGRESE NUMERO: ";
-        std::cin>>v[i];
+// Carga el vector con valores ingresados por el usuario.
+void cargarVector(int v[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        std::cout << "INGRESE NUMERO: ";
+        std::cin >> v[i];
     }
 }
 
-
-
+// Fin del include guard (protección contra inclusiones múltiples).
 #endif // VECTORES_H_INCLUDED
