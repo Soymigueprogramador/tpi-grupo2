@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -126,7 +125,7 @@ int main()
 
                 case 2:
                 estadisticasDelJuego(nombreJugador1, nombreJugador2, puntajeJugador1, puntajeJugador2, cantDadosJ1, cantDadosJ2, nombreMejorJugadorHistorico, maxPuntajeHistorico, partidaJugada);
-                rlutil::anykey(); 
+                rlutil::anykey();
                 rlutil::cls();     // Recién ahora limpia
                 break;
 
