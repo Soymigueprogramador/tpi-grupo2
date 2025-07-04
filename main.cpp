@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -11,25 +12,19 @@
 using namespace std;
 
 
-// Funcion para mostrar el menu.
-int menuOpciones();
-
-// Funcion para crear los dados de 12 caras.
-int dadoDoceCaras();
-
 
 int main()
 {
-    srand(time(0)); // Inicializa la semilla para los n��meros aleatorios.
+    srand(time(0)); // Inicializa la semilla para los nímeros aleatorios.
     //Declaro estructura para jugadores
     SetConsoleOutputCP(65001); //Muestra todo en UTF-8, así se ven bien los tildes, la ñ y los caracteres especiales
     mostrarPortada();
 
     string nombreJugador1, nombreJugador2;
     int puntajeJugador1 = 0, puntajeJugador2 = 0;
-    int TAM = 250; // La cantidad de dados de todos los jugadores, que es 250, pero no se usa todo normalmente por eso el numero grande
-    int dadosStockJ1[TAM] = {};
-    int dadosStockJ2[TAM] = {}; // El corchete pone todos los elementos (los de 6) en 0
+   // " 70" es La cantidad de dados de todos los jugadores, que es 250, pero no se usa todo normalmente por eso el numero grande
+    int dadosStockJ1[70] = {};
+    int dadosStockJ2[70] = {}; // El corchete pone todos los elementos (los de 6) en 0
     int cantDadosJ1 = 6; // Cantidad de dados que tiene cada jugador (se empieza con 6, pero va cambiando)
     int cantDadosJ2 = 6;
     bool partidaJugada = false; // Para que no se muestre una estadistica nula
@@ -46,18 +41,43 @@ int main()
     */
    string nombreMejorJugadorHistorico = "Nadie";
     int maxPuntajeHistorico = 0;
+    char opcionSalir; // caracter
     while (!finalizar)
     {
+
         rlutil::cls();
         opcion = menuOpciones();
 
         switch (opcion)
         {
         case 0:
-            cout << " Saliste del juego " << endl;
-            finalizar = true;
-            break;
+                        cout << "¿ESstás seguro de salir del juego? S/N" << endl;
+            cin >> opcionSalir;
 
+            while (opcionSalir != 's' && opcionSalir != 'S' && opcionSalir != 'n' && opcionSalir != 'N') {
+                cout << "Entrada inválida. Debe ser S o N." << endl;
+                cin.clear();
+                cin.ignore();
+                rlutil::msleep(1000);
+                rlutil::cls();
+                cout << "¿Estás seguro de salir del juego? S/N" << endl;
+                cin >> opcionSalir;
+            }
+
+            switch (opcionSalir) {
+                case 's':
+                case 'S':
+                    cout << "Saliste del juego." << endl;
+                    finalizar = true;
+                    break;
+
+                case 'n':
+                case 'N':
+                    rlutil::cls();
+                    break;
+            }
+
+break;
         case 1:
             rlutil::cls();
 
@@ -81,29 +101,42 @@ int main()
                 cantDadosJ2 = 6;
                 // Son todos reinicios de variables para cada vez que se inicia la partida
 
-                if (quienEmpieza == 0) {
-                    cout << nombreJugador1 << " empieza el juego." << endl;
-                    jugarPartida(nombreJugador1, nombreJugador2, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
+               if (quienEmpieza == 0) {
+                cout << nombreJugador1 << " empieza el juego." << endl;
+                mostrarMensajeYEsperar();
+                // llama a la funcion orientada al primer jugador
+                jugarPartida(nombreJugador1, nombreJugador2, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
+            } else {
+                cout << nombreJugador2 << " empieza el juego." << endl;
+                mostrarMensajeYEsperar();
+                jugarPartida(nombreJugador2, nombreJugador1, dadosStockJ2, dadosStockJ1, cantDadosJ2, cantDadosJ1, puntajeJugador2, puntajeJugador1);
+                // llama a la funcion orientada al segundo jugador
+            }
 
-                } else {
-                    cout << nombreJugador2 << " empieza el juego." << endl;
-                    jugarPartida(nombreJugador2, nombreJugador1, dadosStockJ1, dadosStockJ2, cantDadosJ1, cantDadosJ2, puntajeJugador1, puntajeJugador2);
 
-                }
+        // termina la partida, y lo siguiente es calcular el puntaje para ver quién ganó
+
+
+
+
                 rlutil::msleep(2000);
-                if (puntajeJugador1 > maxPuntajeHistorico) {
-                maxPuntajeHistorico = puntajeJugador1;
-                nombreMejorJugadorHistorico = nombreJugador1;
-                }
-                if (puntajeJugador2 > maxPuntajeHistorico) { // Usamos 'if' y no 'else if' para contemplar que el jugador 2 pueda superar al jugador 1 si es que el jugador 1 no supero el puntaje historico antes.
+                if (puntajeJugador1 > puntajeJugador2) { // Si tiene mas puntaje el jugador que empezó
+                if (puntajeJugador1 > maxPuntajeHistorico) { // Si tiene mas puntaje que el maximo historico, que empieza con 0
+                maxPuntajeHistorico = puntajeJugador1; // Se le da ese titulo al que empezó
+                nombreMejorJugadorHistorico = nombreJugador1; // y el nombre tambien
+                cout << "RECORD HISTÓRICO EN LA SESIÓN: " << nombreMejorJugadorHistorico << " con " << maxPuntajeHistorico << " puntos." << endl;
+                rlutil::msleep(2000);
+                rlutil::cls();
+                } } else // Si no se cumple el primer if, quiere decir que tiene más (o empate, que se verifica despues) el jugador 2
+                if (puntajeJugador2 > maxPuntajeHistorico) { // lo mismo que para el jugador 1 si se gana
                 maxPuntajeHistorico = puntajeJugador2;
                 nombreMejorJugadorHistorico = nombreJugador2;
+                cout << "RECORD HISTÓRICO EN LA SESIÓN: " << nombreMejorJugadorHistorico << " con " << maxPuntajeHistorico << " puntos." << endl;
+                rlutil::msleep(2000);
+                rlutil::cls();
                 }
 
-                cout << "RECORD HISTÓRICO EN LA SESIÓN: " << nombreMejorJugadorHistorico << " con " << maxPuntajeHistorico << " puntos." << endl;
-                rlutil::anykey();
-                break;
-                rlutil::cls();
+
 
                 // Acá podemos hacer que se muestra todo el puntaje final y eso
                 // Después de la llamada a jugarPartida() y la actualización de estadísticas
@@ -116,29 +149,26 @@ int main()
                     cout << "¡El ganador es " << nombreJugador1 << "!" << endl;
                 } else if (puntajeJugador2 > puntajeJugador1) {
                     cout << "¡El ganador es " << nombreJugador2 << "!" << endl;
-                } else {
+                } else { // si ni j1 ni j2 tienen mas puntaje que el otro, quiere decir empate
                     cout << "¡La partida ha terminado en empate!" << endl;
                 }
                 cout << "==========================================" << endl;
-                rlutil::anykey();
+                mostrarMensajeYEsperar;
                 break;
 
                 case 2:
                 estadisticasDelJuego(nombreJugador1, nombreJugador2, puntajeJugador1, puntajeJugador2, cantDadosJ1, cantDadosJ2, nombreMejorJugadorHistorico, maxPuntajeHistorico, partidaJugada);
-                rlutil::anykey();
-                rlutil::cls();     // Recién ahora limpia
+                mostrarMensajeYEsperar;
                 break;
 
                 case 3:
                     creditos();
-                    rlutil::anykey();
-                    rlutil::cls();
+
                     break;
 
                 case 4:
                     reglamento();
-                    rlutil::anykey();
-                    rlutil::cls();
+
                     break;
 
 
@@ -146,7 +176,6 @@ int main()
         }
     }
 
-    int decidirQuienEmpieza(); // s
 
 
     return 0;

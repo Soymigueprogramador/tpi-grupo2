@@ -105,7 +105,7 @@ void cargarAleatorio(int v[], int tam, int limite) {
 // Muestra todos los elementos del vector separados por tabulación.
 void mostrarVector(int v[], int tam) {
     for (int i = 0; i < tam; i++) {
-        std::cout << v[i] << "\t";
+        std::cout << v[i] << " ";
     }
 }
 
